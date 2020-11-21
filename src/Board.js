@@ -1,23 +1,43 @@
 import React, { useState } from "react";
 import Square from "./Square";
-import { TREASURES } from './cards';
+import { TREASURES } from "./cards";
 
 export default function Board() {
-  const randomTreasure = TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
+  const randomTreasure =
+    TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
   const [gameBoard, setGameboard] = useState(randomTreasure);
+  const [turn, setTurn] = useState([
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ]);
 
   function handleClick(r, c) {
     let squares = gameBoard.slice();
+    let turnBoard = turn.slice();
     if (squares[r][c] !== 1) {
       squares[r][c] = "X";
+      turnBoard[r][c] = 1;
     }
     setGameboard(squares);
-    console.log(gameBoard);
+    setTurn(turnBoard);
+    console.log(turnBoard);
   }
 
   //where r (rows) and c (columns) are 0-3
   function renderSquare(r, c) {
     return <Square value={gameBoard[r][c]} onClick={() => handleClick(r, c)} />;
+  }
+
+  function handleSubmit() {
+    //need to validate the 'turn' information still
+    setTurn([
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    ]);
   }
 
   return (
@@ -46,6 +66,7 @@ export default function Board() {
         {renderSquare(3, 2)}
         {renderSquare(3, 3)}
       </div>
+      <button onClick={() => handleSubmit()}>submit</button>
     </div>
   );
 }
