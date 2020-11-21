@@ -7,10 +7,10 @@ export default function Board() {
     TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
   const [gameBoard, setGameboard] = useState(randomTreasure);
   const [turn, setTurn] = useState([
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ]);
 
   function handleClick(r, c) {
