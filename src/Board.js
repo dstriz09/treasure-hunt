@@ -33,10 +33,10 @@ export default function Board() {
   function handleSubmit() {
     //need to validate the 'turn' information still
     setTurn([
-      [1, 1, 1, 1],
-      [1, 1, 1, 1],
-      [1, 1, 1, 1],
-      [1, 1, 1, 1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
     ]);
   }
 
