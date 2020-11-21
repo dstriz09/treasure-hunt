@@ -67,8 +67,3 @@ export const TREASURES = [
     bonus: null
   }
 ]
-
-export const randomTreasure = (arr) => {
-  let rand = Math.floor(Math.random() * arr.length);
-  return arr.splice(rand, 1);
-};
