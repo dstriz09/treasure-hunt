@@ -1,5 +1,6 @@
 import React from "react";
 import { TREASURES, randomTreasure } from './cards';
+import Board from "./Board";
 
 export default function App() {
   let treasureCards = TREASURES;
@@ -14,6 +15,7 @@ export default function App() {
           <p>{item}</p>
         ))}
       </p>
+      <Board />
     </div>
   );
 }
