@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import Square from "./Square";
+import { TREASURES } from './cards';
 
 export default function Board() {
-  const [gameBoard, setGameboard] = useState([
-    [0, 0, 0, 0],
-    [0, 1, 0, 0],
-    [0, 0, 1, 0],
-    [0, 0, 0, 0],
-  ]);
+  const randomTreasure = TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
+  const [gameBoard, setGameboard] = useState(randomTreasure);
 
   function handleClick(r, c) {
     let squares = gameBoard.slice();
