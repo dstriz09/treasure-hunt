@@ -18,7 +18,7 @@ export default function Board() {
     let turnBoard = turn.slice();
     if (squares[r][c] !== 1) {
       squares[r][c] = "X";
-      turnBoard[r][c] = "0";
+      turnBoard[r][c] = 1;
     }
     setGameboard(squares);
     setTurn(turnBoard);
