@@ -27,6 +27,8 @@ export default function Board() {
 
     setGameboard(squares);
     setTurn(turnBoard);
+    console.log("tb", turnBoard);
+    console.log("gb", gameBoard);
   }
 
   //where r (rows) and c (columns) are 0-3
