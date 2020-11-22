@@ -1,16 +1,30 @@
 // To do; add all eight expedition cards
 export const EXPEDITIONS = [
   {
-    name: "L",
+    name: "Uppercase L",
+    id: "L",
     validate: null,
+    rawShape: [
+      ["x","x","x"],
+      ["x","",""]
+    ]
   },
   {
-    name: "I",
+    name: "Long I",
+    id: "I",
     validate: null,
+    rawShape: [
+      ["x","x","x"]
+    ]
   },
   {
-    name: "S",
+    name: "Square",
+    id: "S",
     validate: null,
+    rawShape: [
+      ["x","x"],
+      ["x","x"]
+    ]
   },
 ]
 
