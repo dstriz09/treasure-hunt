@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Square from "./Square";
 import { TREASURES } from "./cards";
+import { validateShape } from "./shapes/Shapes"
+import { CardContext } from "./CardContext";
 
 export default function Board() {
+  const [state, setState] = useContext(CardContext);
+
   const randomTreasure =
     TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
   const [gameBoard, setGameboard] = useState(randomTreasure);
@@ -37,14 +41,21 @@ export default function Board() {
   }
 
   function handleSubmit() {
-    console.log(turn);
-    //need to validate the 'turn' information still
-    setTurn([
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ]);
+
+    const isValid = validateShape(turn, 'original', state.currentExpedition)
+
+    if (isValid) {
+      console.log ("Shape is valid!")
+      setTurn([
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+      ]);
+    } else {
+      alert("BAD SHAPE. TRY AGAIN");
+    }
+
   }
 
   return (
