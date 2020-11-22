@@ -6,10 +6,10 @@ export default function Expedition() {
 
   function handleRoundChange() {
     if (state.currentRound < 7) {
-      setState(state => ({ ...state, currentRound: state.currentRound + 1 }));;
+      setState(state => ({ ...state, currentRound: state.currentRound + 1 }));
     } else {
-      setState(state => ({ ...state, expeditionDeck: newExpeditionDeck() }));;
-      setState(state => ({ ...state, currentRound: 1 }));;
+      // generate new expedition deck and reset round to 1
+      setState(state => ({ ...state, currentRound: 1, expeditionDeck: newExpeditionDeck() }));
     }
   }
 
