@@ -4,13 +4,20 @@ import { EXPEDITIONS } from "./cards";
 // Create the context. Empty function allows us to call setState
 export const CardContext = React.createContext([{}, () => {}]);
 
-const CardContextProvider = (props) => {
-  const randomExpedition = EXPEDITIONS[Math.floor(Math.random() * EXPEDITIONS.length)];
+export const newExpeditionDeck = () => {
+  let shuffled = EXPEDITIONS
+  .map((a) => ({sort: Math.random(), value: a}))
+  .sort((a, b) => a.sort - b.sort)
+  .map((a) => a.value)
+  return shuffled;
+}
 
+const CardContextProvider = (props) => {
   const [state, setState] = useState({
-    currentExpedition: randomExpedition,
+    expeditionDeck: newExpeditionDeck(),
     currentRound: 1,
   });
+  
   return (
     <CardContext.Provider value={[state, setState]}>
       {props.children}

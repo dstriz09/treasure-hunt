@@ -1,31 +1,66 @@
 // To do; add all eight expedition cards
 export const EXPEDITIONS = [
   {
+    name: "Square",
+    id: "S",
+    rawShape: [
+      ["x","x"],
+      ["x","x"]
+    ]
+  },
+  {
     name: "Uppercase L",
     id: "L",
-    validate: null,
     rawShape: [
       ["x","x","x"],
       ["x","",""]
     ]
   },
   {
+    name: "Tetris",
+    id: "T",
+    rawShape: [
+      [" ","x"," "],
+      ["x","x","x"]
+    ]
+  },
+  {
     name: "Long I",
     id: "I",
-    validate: null,
     rawShape: [
       ["x","x","x"]
     ]
   },
   {
-    name: "Square",
-    id: "S",
-    validate: null,
+    name: "Long I",
+    id: "I",
     rawShape: [
-      ["x","x"],
-      ["x","x"]
+      ["x","x","x"]
     ]
   },
+  {
+    name: "Bend",
+    id: "B",
+    rawShape: [
+      ["x","x"],
+      ["x",""]
+    ]
+  },
+  {
+    name: "Bend",
+    id: "B",
+    rawShape: [
+      ["x","x"],
+      ["x",""]
+    ]
+  },
+  {
+    name: "Dash",
+    id: "D",
+    rawShape: [
+      ["x","x"]
+    ]
+  }
 ]
 
 // To do; add all 47 treasure cards
