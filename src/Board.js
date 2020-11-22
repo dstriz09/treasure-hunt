@@ -7,9 +7,11 @@ import { CardContext } from "./CardContext";
 export default function Board() {
   const [state, setState] = useContext(CardContext);
 
+  let gameBoard = state.treasureDeck[state.currentTreasure].grid
+
   const randomTreasure =
     TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
-  const [gameBoard, setGameboard] = useState(randomTreasure);
+  // const [gameBoard, setGameboard] = useState(randomTreasure);
   const [turn, setTurn] = useState([
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -18,7 +20,7 @@ export default function Board() {
   ]);
 
   function handleClick(r, c) {
-    let squares = gameBoard.slice();
+    let squares = state.treasureDeck[state.currentTreasure].grid.slice();
     let turnBoard = turn.slice();
 
     if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
@@ -42,7 +44,7 @@ export default function Board() {
 
   function handleSubmit() {
 
-    const isValid = validateShape(turn, 'original', state.currentExpedition)
+    const isValid = validateShape(turn, 'original', state.expeditionDeck[state.currentRound])
 
     if (isValid) {
       console.log ("Shape is valid!")
