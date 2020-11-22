@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Square from "./Square";
 import { TREASURES } from "./cards";
 import { validateShape } from "./shapes/Shapes"
+import { CardContext } from "./CardContext";
 
 export default function Board(props) {
+  const [state, setState] = useContext(CardContext);
+
   const randomTreasure =
     TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
   const [gameBoard, setGameboard] = useState(randomTreasure);
@@ -40,7 +43,7 @@ export default function Board(props) {
   function handleSubmit() {
 
     console.log('prop', props.ex)
-    const isValid = validateShape(turn, 'original')
+    const isValid = validateShape(turn, 'original', state.currentExpedition)
 
     if (isValid) {
       console.log ("Shape is valid!")

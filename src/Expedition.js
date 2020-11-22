@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { CardContext } from "./CardContext";
 import { EXPEDITIONS } from "./cards";
 
-export default function Expedition(props) {
-  // const randomExpedition = EXPEDITIONS[Math.floor(Math.random() * EXPEDITIONS.length)];
-
-  const [expeditionCard, setExpeditionCard] = useState(props.ex);
-  const [expeditionRound, setExpeditionRound] = useState(1);
+export default function Expedition() {
+  const [state, setState] = useContext(CardContext);
 
   function handleRoundChange() {
-    setExpeditionCard(props.ex);
-    if (expeditionRound < 7) {
-      setExpeditionRound(round => round + 1);
+    const randomExpedition = EXPEDITIONS[Math.floor(Math.random() * EXPEDITIONS.length)];
+    setState(state => ({ ...state, currentExpedition: randomExpedition }));
+    if (state.currentRound < 7) {
+      setState(state => ({ ...state, currentRound: state.currentRound + 1 }));;
     } else {
-      setExpeditionRound(1);
+      setState(state => ({ ...state, currentRound: 1 }));;
     }
   }
 
@@ -20,14 +19,13 @@ export default function Expedition(props) {
     <div>
       <div>
         <div>
-          Expedition card #{expeditionRound}/7
+          Expedition card #{state.currentRound}/7
         </div>
-        Current expedition card: <b>{expeditionCard.name}</b>
-        {expeditionCard.rawShape.map((item,i) => (
+        Current expedition card: <b>{state.currentExpedition.name}</b>
+        {state.currentExpedition.rawShape.map((item,i) => (
           <div key={i}>{item}</div>
         ))}
       </div>
-      <div>{props.option}</div>
       <button onClick={() => handleRoundChange()}>Next expedition card</button>
     </div>
   )

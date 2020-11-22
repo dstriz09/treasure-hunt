@@ -1,41 +1,44 @@
 import { isLshape } from "./L"
 
-export const validateShape = ((selection, info) => {
-
-  // manually set id to L for now
-  let id = "L";
-
+export const validateShape = ((selection, info, expedition) => {
+  let id = expedition.id
   let valid = false;
+
   switch(id) {
     case "L":
       // validate L
       const isOKshape = isLshape(selection, info);
 
       if (isOKshape) {
+        console.log("Shape is OK!");
         valid = true;
         break;
+
       } else {
-        console.log ("Shape is BAD! Rotating.")
+        // rotate the shape
         const rotate = m => m[0].map((x,i) => m.map(x => x[i]))
         const rotated = rotate(selection);
         const rotatedOK = isLshape(rotated, '(rotated)');
+
         if (rotatedOK) {
-          console.log ("Shape is OK when rotated!")
+          console.log("Shape is OK!");
           valid = true;
           break;
-        } else {
-          console.log ("Shape is BAD!")
         }
       }
       break;
+
     case "S":
-      // todo: validate
+      console.log("no validation for this shape yet")
       valid = true;
       break;
+
     case "I":
       // todo: validate
+      console.log("no validation for this shape yet")
       valid = true;
       break;
+      
     default:
       break;
   }
