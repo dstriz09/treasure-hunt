@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { EXPEDITIONS } from "./cards";
 
-export default function Expedition() {
+export default function Expedition(props) {
+  // const randomExpedition = EXPEDITIONS[Math.floor(Math.random() * EXPEDITIONS.length)];
 
-  const randomExpedition =
-    EXPEDITIONS[Math.floor(Math.random() * EXPEDITIONS.length)];
-  const [expeditionCard, setExpeditionCard] = useState(randomExpedition);
+  const [expeditionCard, setExpeditionCard] = useState(props.ex);
   const [expeditionRound, setExpeditionRound] = useState(1);
 
   function handleRoundChange() {
-    setExpeditionCard(randomExpedition);
+    setExpeditionCard(props.ex);
     if (expeditionRound < 7) {
       setExpeditionRound(round => round + 1);
     } else {
@@ -28,6 +27,7 @@ export default function Expedition() {
           <div key={i}>{item}</div>
         ))}
       </div>
+      <div>{props.option}</div>
       <button onClick={() => handleRoundChange()}>Next expedition card</button>
     </div>
   )
