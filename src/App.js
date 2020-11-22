@@ -4,7 +4,6 @@ import Expedition from "./Expedition"
 import CardContextProvider from "./CardContext"
 
 export default function App() {
-  
   return (
     <div className="App">
       <CardContextProvider>

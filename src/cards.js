@@ -81,5 +81,3 @@ export const TREASURES = [
     bonus: null
   }
 ]
-
-// export const randomEx = () => EXPEDITIONS[Math.floor(Math.random() * EXPEDITIONS.length)];

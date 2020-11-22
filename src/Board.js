@@ -4,7 +4,7 @@ import { TREASURES } from "./cards";
 import { validateShape } from "./shapes/Shapes"
 import { CardContext } from "./CardContext";
 
-export default function Board(props) {
+export default function Board() {
   const [state, setState] = useContext(CardContext);
 
   const randomTreasure =
@@ -42,7 +42,6 @@ export default function Board(props) {
 
   function handleSubmit() {
 
-    console.log('prop', props.ex)
     const isValid = validateShape(turn, 'original', state.currentExpedition)
 
     if (isValid) {
