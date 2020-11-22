@@ -16,14 +16,19 @@ export default function Board() {
   function handleClick(r, c) {
     let squares = gameBoard.slice();
     let turnBoard = turn.slice();
-    if (squares[r][c] !== 1) {
+
+    if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
       squares[r][c] = "X";
       turnBoard[r][c] = 1;
+    } else if (turnBoard[r][c] === 1) {
+      squares[r][c] = 0;
+      turnBoard[r][c] = 0;
     }
+
     setGameboard(squares);
     setTurn(turnBoard);
-    console.log('tb', turnBoard);
-    console.log('gb', gameBoard);
+    console.log("tb", turnBoard);
+    console.log("gb", gameBoard);
   }
 
   //where r (rows) and c (columns) are 0-3
@@ -32,12 +37,13 @@ export default function Board() {
   }
 
   function handleSubmit() {
+    console.log(turn);
     //need to validate the 'turn' information still
     setTurn([
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
     ]);
   }
 
