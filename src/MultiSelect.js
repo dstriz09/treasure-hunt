@@ -13,12 +13,13 @@ export default function MultiSelect({ onSubmit }) {
     for (let i = 0; i < players; i++) {
       newArray.push([
         <div style={{ display: "flex" }}>
-          <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>Player</h3>
-          <Board playerId={i} boardId={boardId} />
-          <Board playerId={i} boardId={boardId + 1} />
+          <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>
+            Player {i + 1}
+          </h3>
+          <Board playerId={i} boardId={++boardId} />
+          <Board playerId={i} boardId={++boardId} />
         </div>,
       ]);
-      boardId += 2;
     }
     setMultiplayer(newArray);
   };
