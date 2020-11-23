@@ -1,15 +1,12 @@
 import React, { useContext, useState } from "react";
 import Square from "./Square";
-import { TREASURES } from "./cards";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
 
-export default function Board() {
+export default function Board(props) {
   const [state, setState] = useContext(CardContext);
+  const [gameBoard, setGameboard] = useState(state.treasureDeck[props.boardId].grid);
 
-  const randomTreasure =
-    TREASURES[Math.floor(Math.random() * TREASURES.length)].grid;
-  const [gameBoard, setGameboard] = useState(randomTreasure);
   const [turn, setTurn] = useState([
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -18,11 +15,11 @@ export default function Board() {
   ]);
 
   function handleClick(r, c) {
-    let squares = gameBoard.slice();
+    let squares = state.treasureDeck[props.boardId].grid.slice();
     let turnBoard = turn.slice();
 
     if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
-      squares[r][c] = "X";
+      squares[r][c] = 1;
       turnBoard[r][c] = 1;
     } else if (turnBoard[r][c] === 1) {
       squares[r][c] = 0;
@@ -58,10 +55,37 @@ export default function Board() {
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
+
+    // See if board is complete
+    if (isBoardComplete(gameBoard) === 16) {
+      // Board is complete! Add it to the users completed boards.
+      // To do: Generate a new board for the user.
+
+      // Get all players cards
+      let playersCards = [...state.players];
+      let playerCards = playersCards[props.boardId].cards
+      let currentCard = {...state.treasureDeck[props.boardId]};
+      // Push the completed card to the users array
+      let updatedPlayers = [...playersCards, playerCards.push(currentCard)];
+
+      // Update state
+      setState(state => ({ ...state, players : [...updatedPlayers] }));
+    }
+  }
+
+  function isBoardComplete (board) {
+    let currentRowSums = []; 
+    const add = (total, num) => total + num;
+    gameBoard.forEach(row => {
+      currentRowSums.push(row.reduce(add));
+    })
+    return currentRowSums.reduce(add);
   }
 
   return (
-    <div style={{ margin: "20px" }}>
+    <div style={{ margin: "20px" }} boardId={props.boardId}>
+      <p>Points: {state.treasureDeck[props.boardId].value}</p>
+      <p>Color: {state.treasureDeck[props.boardId].color}</p>
       <div className="board-row">
         {renderSquare(0, 0)}
         {renderSquare(0, 1)}

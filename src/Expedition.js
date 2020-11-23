@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { CardContext, newExpeditionDeck } from "./CardContext";
+import { CardContext, NewExpeditionDeck } from "./CardContext";
 
 export default function Expedition() {
   const [state, setState] = useContext(CardContext);
@@ -9,7 +9,7 @@ export default function Expedition() {
       setState(state => ({ ...state, currentRound: state.currentRound + 1 }));
     } else {
       // generate new expedition deck and reset round to 1
-      setState(state => ({ ...state, currentRound: 1, expeditionDeck: newExpeditionDeck() }));
+      setState(state => ({ ...state, currentRound: 1, expeditionDeck: NewExpeditionDeck() }));
     }
   }
 

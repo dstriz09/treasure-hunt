@@ -38,8 +38,9 @@ export const validateShape = ((selection, info, expedition) => {
       console.log("no validation for this shape yet")
       valid = true;
       break;
-      
+
     default:
+      valid = true;
       break;
   }
 

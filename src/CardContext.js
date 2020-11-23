@@ -1,21 +1,37 @@
 import React, { useState } from "react";
-import { EXPEDITIONS } from "./cards";
+import { EXPEDITIONS, TREASURES } from "./cards";
 
 // Create the context. Empty function allows us to call setState
 export const CardContext = React.createContext([{}, () => {}]);
 
-export const newExpeditionDeck = () => {
-  let shuffled = EXPEDITIONS
-  .map((a) => ({sort: Math.random(), value: a}))
-  .sort((a, b) => a.sort - b.sort)
-  .map((a) => a.value)
-  return shuffled;
+export const NewExpeditionDeck = () => {
+  return shuffle(EXPEDITIONS);
+}
+
+export const NewTreasureDeck = () => {
+  return shuffle(TREASURES);
+}
+
+const shuffle = (deck) => {
+  return deck
+    .map((a) => ({sort: Math.random(), value: a}))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
 }
 
 const CardContextProvider = (props) => {
   const [state, setState] = useState({
-    expeditionDeck: newExpeditionDeck(),
-    currentRound: 1,
+    expeditionDeck: NewExpeditionDeck(),
+    treasureDeck: NewTreasureDeck(),
+    currentRound: 1, // seven rounds per phase
+    currentPhase: 1, // four phases per game
+    currentTreasure: 0,
+    players: [
+      {cards: []},
+      {cards: []},
+      {cards: []},
+      {cards: []},
+    ]
   });
   
   return (

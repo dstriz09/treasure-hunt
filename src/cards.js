@@ -1,4 +1,3 @@
-// To do; add all eight expedition cards
 export const EXPEDITIONS = [
   {
     name: "Square",
@@ -80,12 +79,36 @@ export const TREASURES = [
     bonus: null
   },
   {
+    color: 'purple',
+    value: 14,
+    badge: false,
+    grid: [
+      [1, 1, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ],
+    bonus: null
+  },
+  {
     color: 'orange',
     value: 12,
     badge: false,
     grid: [
       [0, 0, 1, 1],
       [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [1, 1, 0, 0],
+    ],
+    bonus: null
+  },
+  {
+    color: 'orange',
+    value: 12,
+    badge: false,
+    grid: [
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
       [0, 0, 0, 0],
       [1, 1, 0, 0],
     ],
@@ -104,8 +127,32 @@ export const TREASURES = [
     bonus: null
   },
   {
+    color: 'grey',
+    value: 8,
+    badge: false,
+    grid: [
+      [1, 1, 1, 1],
+      [0, 1, 1, 0],
+      [0, 0, 0, 0],
+      [0, 1, 1, 0],
+    ],
+    bonus: null
+  },
+  {
     color: 'green',
     value: 14,
+    badge: false,
+    grid: [
+      [1, 1, 1, 1],
+      [1, 0, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 0],
+    ],
+    bonus: null
+  },
+  {
+    color: 'green',
+    value: 10,
     badge: false,
     grid: [
       [1, 1, 1, 1],

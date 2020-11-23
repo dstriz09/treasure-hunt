@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Board from "./Board";
 import Expedition from "./Expedition";
+import { CardContext } from "./CardContext";
 
 export default function MultiSelect({ onSubmit }) {
   const [option, setOption] = useState({ value: "2" });
@@ -8,16 +9,17 @@ export default function MultiSelect({ onSubmit }) {
 
   const handleSubmit = (e, players) => {
     e.preventDefault();
+
     let newArray = [];
-    let boardId = 10;
+    let boardId = 0;
     for (let i = 0; i < players; i++) {
       newArray.push([
         <div style={{ display: "flex" }}>
           <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>
             Player {i + 1}
           </h3>
-          <Board playerId={i} boardId={++boardId} />
-          <Board playerId={i} boardId={++boardId} />
+          <Board playerId={i} boardId={boardId++} />
+          <Board playerId={i} boardId={boardId++} />
         </div>,
       ]);
     }
