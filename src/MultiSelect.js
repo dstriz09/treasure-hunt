@@ -3,85 +3,25 @@ import Board from "./Board";
 import Expedition from "./Expedition";
 
 export default function MultiSelect({ onSubmit }) {
-  const [option, setOption] = useState({ value: "3" });
+  const [option, setOption] = useState({ value: "2" });
   const [multiplayer, setMultiplayer] = useState("");
+  let onePlayer = [
+    <div style={{ display: "flex" }}>
+      <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>Player</h3>
+      <Board />
+      <Board />
+    </div>,
+  ];
 
   const handleSubmit = (e, players) => {
     e.preventDefault();
-    console.log(players == 2);
-    if (players == 2) {
-      console.log("dillin");
-      setMultiplayer(
-        <div>
-          <Expedition />
-          <br />
-          <br />
-          <h3>Player 1</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-          <h3>Player 2</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-        </div>
-      );
-    } else if (players == 3) {
-      console.log("dillin");
-      setMultiplayer(
-        <div>
-          <Expedition />
-          <br />
-          <br />
-          <h3>Player 1</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-          <h3>Player 2</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-          <h3>Player 3</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-        </div>
-      );
-    } else if (players == 4) {
-      console.log("dillin");
-      setMultiplayer(
-        <div>
-          <Expedition />
-          <br />
-          <br />
-          <h3>Player 1</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-          <h3>Player 2</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-          <h3>Player 3</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-          <h3>Player 4</h3>
-          <Board />{" "}
-          <span>
-            <Board />
-          </span>
-        </div>
-      );
+    let newArray = [];
+    let i = 0;
+    while (i < players) {
+      newArray = [...newArray, onePlayer];
+      i++;
     }
+    setMultiplayer(newArray);
   };
 
   return (
