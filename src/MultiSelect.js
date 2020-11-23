@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Board from "./Board";
 import Expedition from "./Expedition";
+import { CardContext } from "./CardContext";
 
 export default function MultiSelect({ onSubmit }) {
   const [option, setOption] = useState({ value: "2" });
   const [multiplayer, setMultiplayer] = useState("");
-  let onePlayer = [
-    <div style={{ display: "flex" }}>
-      <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>Player</h3>
-      <Board />
-      <Board />
-    </div>,
-  ];
+
+  // const [state, setState] = useContext(CardContext);
 
   const handleSubmit = (e, players) => {
     e.preventDefault();
+
     let newArray = [];
-    let i = 0;
-    while (i < players) {
-      newArray = [...newArray, onePlayer];
-      i++;
+    let boardId = 0;
+    for (let i = 0; i < players; i++) {
+      let playerNum = i + 1
+      newArray.push([
+        <div style={{ display: "flex" }}>
+          <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>Player {playerNum}</h3>
+          <Board playerId={i} boardId={boardId++} />
+          <Board playerId={i} boardId={boardId++} />
+        </div>,
+      ]);
     }
     setMultiplayer(newArray);
   };
@@ -42,6 +45,7 @@ export default function MultiSelect({ onSubmit }) {
         </label>
         <input type="submit" value="Submit" />
       </form>
+      <Expedition />
       {multiplayer}
     </div>
   );
