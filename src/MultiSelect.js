@@ -5,21 +5,20 @@ import Expedition from "./Expedition";
 export default function MultiSelect({ onSubmit }) {
   const [option, setOption] = useState({ value: "2" });
   const [multiplayer, setMultiplayer] = useState("");
-  let onePlayer = [
-    <div style={{ display: "flex" }}>
-      <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>Player</h3>
-      <Board />
-      <Board />
-    </div>,
-  ];
 
   const handleSubmit = (e, players) => {
     e.preventDefault();
     let newArray = [];
-    let i = 0;
-    while (i < players) {
-      newArray = [...newArray, onePlayer];
-      i++;
+    let boardId = 10;
+    for (let i = 0; i < players; i++) {
+      newArray.push([
+        <div style={{ display: "flex" }}>
+          <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>Player</h3>
+          <Board playerId={i} boardId={boardId} />
+          <Board playerId={i} boardId={boardId + 1} />
+        </div>,
+      ]);
+      boardId += 2;
     }
     setMultiplayer(newArray);
   };
@@ -42,6 +41,7 @@ export default function MultiSelect({ onSubmit }) {
         </label>
         <input type="submit" value="Submit" />
       </form>
+      <Expedition />
       {multiplayer}
     </div>
   );

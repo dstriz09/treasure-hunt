@@ -41,7 +41,11 @@ export default function Board() {
   }
 
   function handleSubmit() {
-    const isValid = validateShape(turn, "original", state.currentExpedition);
+    const isValid = validateShape(
+      turn,
+      "original",
+      state.expeditionDeck[state.currentRound]
+    );
 
     if (isValid) {
       console.log("Shape is valid!");
