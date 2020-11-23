@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Square from "./Square";
 import { TREASURES } from "./cards";
-import { validateShape } from "./shapes/Shapes"
+import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
 
 export default function Board() {
@@ -43,11 +43,10 @@ export default function Board() {
   }
 
   function handleSubmit() {
-
     const isValid = validateShape(turn, 'original', state.expeditionDeck[state.currentRound])
 
     if (isValid) {
-      console.log ("Shape is valid!")
+      console.log("Shape is valid!");
       setTurn([
         [0, 0, 0, 0],
         [0, 0, 0, 0],
@@ -57,11 +56,10 @@ export default function Board() {
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
-
   }
 
   return (
-    <div>
+    <div style={{ margin: "20px" }}>
       <div className="board-row">
         {renderSquare(0, 0)}
         {renderSquare(0, 1)}
