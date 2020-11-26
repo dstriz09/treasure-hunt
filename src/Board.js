@@ -5,7 +5,7 @@ import { CardContext } from "./CardContext";
 
 export default function Board(props) {
   const [state, setState] = useContext(CardContext);
-  const [gameBoard, setGameboard] = useState(state.treasureDeck[props.boardId].grid);
+  const [gameBoard, setGameboard] = useState(state.treasureDeck[props.boardid].grid);
 
   const [turn, setTurn] = useState([
     [0, 0, 0, 0],
@@ -15,7 +15,7 @@ export default function Board(props) {
   ]);
 
   function handleClick(r, c) {
-    let squares = state.treasureDeck[props.boardId].grid.slice();
+    let squares = state.treasureDeck[props.boardid].grid.slice();
     let turnBoard = turn.slice();
 
     if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
@@ -62,14 +62,16 @@ export default function Board(props) {
       // To do: Generate a new board for the user.
 
       // Get all players cards
-      let playersCards = [...state.players];
-      let playerCards = playersCards[props.boardId].cards
-      let currentCard = {...state.treasureDeck[props.boardId]};
-      // Push the completed card to the users array
-      let updatedPlayers = [...playersCards, playerCards.push(currentCard)];
+      // let playersCards = [...state.players];
+      // let playerCards = playersCards[props.boardid].cards
+      // let currentCard = {...state.treasureDeck[props.boardid]};
+      // // Push the completed card to the users array
+      // let updatedPlayers = [...playersCards, playerCards.push(currentCard)];
 
-      // Update state
-      setState(state => ({ ...state, players : [...updatedPlayers] }));
+      // // Update state
+      // setState(state => ({ ...state, players : [...updatedPlayers] }));
+
+      console.log('card complete')
     }
   }
 
@@ -83,9 +85,9 @@ export default function Board(props) {
   }
 
   return (
-    <div style={{ margin: "20px" }} boardId={props.boardId}>
-      <p>Points: {state.treasureDeck[props.boardId].value}</p>
-      <p>Color: {state.treasureDeck[props.boardId].color}</p>
+    <div style={{ margin: "20px" }} boardid={props.boardid}>
+      <p>Points: {state.treasureDeck[props.boardid].value}</p>
+      <p>Color: {state.treasureDeck[props.boardid].color}</p>
       <div className="board-row">
         {renderSquare(0, 0)}
         {renderSquare(0, 1)}

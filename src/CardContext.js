@@ -26,12 +26,7 @@ const CardContextProvider = (props) => {
     currentRound: 1, // seven rounds per phase
     currentPhase: 1, // four phases per game
     currentTreasure: 0,
-    players: [
-      {cards: []},
-      {cards: []},
-      {cards: []},
-      {cards: []},
-    ]
+    players: null
   });
   
   return (

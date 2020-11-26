@@ -1,29 +1,26 @@
 import React, { useContext, useState } from "react";
-import Board from "./Board";
+import Players from "./Players";
 import Expedition from "./Expedition";
+
 import { CardContext } from "./CardContext";
+
 
 export default function MultiSelect({ onSubmit }) {
   const [option, setOption] = useState({ value: "2" });
-  const [multiplayer, setMultiplayer] = useState("");
+  const [playersArr, setPlayersArr] = useState([]);
+  const [state, setState] = useContext(CardContext);
 
   const handleSubmit = (e, players) => {
     e.preventDefault();
 
-    let newArray = [];
-    let boardId = 0;
+    let temp = []
     for (let i = 0; i < players; i++) {
-      newArray.push([
-        <div style={{ display: "flex" }}>
-          <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>
-            Player {i + 1}
-          </h3>
-          <Board playerId={i} boardId={boardId++} />
-          <Board playerId={i} boardId={boardId++} />
-        </div>,
-      ]);
+      temp.push(<Players playerid={i} key={i}/>)
     }
-    setMultiplayer(newArray);
+    setPlayersArr(temp);
+
+    // Update current board number to be the num of players times two
+    setState(state => ({ ...state, currentTreasure: players * 2 }));
   };
 
   return (
@@ -45,7 +42,11 @@ export default function MultiSelect({ onSubmit }) {
         <input type="submit" value="Submit" />
       </form>
       <Expedition />
-      {multiplayer}
+      {
+        playersArr.map((player) => {
+          return player;
+        })
+      }
     </div>
   );
 }
