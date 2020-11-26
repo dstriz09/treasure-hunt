@@ -8,7 +8,8 @@ export const isSshape = (selection, info) => {
     selection.forEach((row) => {
       currentRowSums.push(row.reduce(add));
     });
-
+    const oneBLogic = isFour(currentRowSums);
+    // 1a.
     console.log(
       info + " sums OK? ",
       JSON.stringify(currentRowSums.sort()) == JSON.stringify(correctRowSums)
@@ -16,8 +17,8 @@ export const isSshape = (selection, info) => {
     if (JSON.stringify(currentRowSums.sort()) != JSON.stringify(correctRowSums))
       isS = false;
 
-    console.log(info + " sums in good order? ", isFour(currentRowSums));
-    if (!isFour(currentRowSums)) isS = false;
+    console.log(info + " sums in good order? ", oneBLogic);
+    if (!oneBLogic) isS = false;
   };
 
   rowSumsAreRight();
