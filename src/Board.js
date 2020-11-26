@@ -3,9 +3,9 @@ import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
 
-export default function Board(props) {
+export default function Board({ playerid, boardid, grid, color, value, resetBoard}) {
   const [state, setState] = useContext(CardContext);
-  const [gameBoard, setGameboard] = useState(state.treasureDeck[props.boardid].grid);
+  const [gameBoard, setGameboard] = useState(grid);
 
   const [turn, setTurn] = useState([
     [0, 0, 0, 0],
@@ -15,7 +15,7 @@ export default function Board(props) {
   ]);
 
   function handleClick(r, c) {
-    let squares = state.treasureDeck[props.boardid].grid.slice();
+    let squares = grid.slice();
     let turnBoard = turn.slice();
 
     if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
@@ -58,20 +58,25 @@ export default function Board(props) {
 
     // See if board is complete
     if (isBoardComplete(gameBoard) === 16) {
-      // Board is complete! Add it to the users completed boards.
-      // To do: Generate a new board for the user.
+      console.log('card complete', playerid, boardid)
 
-      // Get all players cards
-      // let playersCards = [...state.players];
-      // let playerCards = playersCards[props.boardid].cards
-      // let currentCard = {...state.treasureDeck[props.boardid]};
-      // // Push the completed card to the users array
-      // let updatedPlayers = [...playersCards, playerCards.push(currentCard)];
+      setTurn([
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+      ]);
 
-      // // Update state
-      // setState(state => ({ ...state, players : [...updatedPlayers] }));
+      // setGameboard([
+      //   ['?', '?', '?', '?'],
+      //   ['?', '?', '?', '?'],
+      //   ['?', '?', '?', '?'],
+      //   ['?', '?', '?', '?'],
+      // ]);
 
-      console.log('card complete')
+      const newGrid = resetBoard(playerid, boardid);
+      console.log('ng', newGrid)
+      setGameboard(newGrid.grid);
     }
   }
 
@@ -85,9 +90,9 @@ export default function Board(props) {
   }
 
   return (
-    <div style={{ margin: "20px" }} boardid={props.boardid}>
-      <p>Points: {state.treasureDeck[props.boardid].value}</p>
-      <p>Color: {state.treasureDeck[props.boardid].color}</p>
+    <div style={{ margin: "20px" }} boardid={boardid}>
+      <p>Points: {value}</p>
+      <p>Color: {color}</p>
       <div className="board-row">
         {renderSquare(0, 0)}
         {renderSquare(0, 1)}
