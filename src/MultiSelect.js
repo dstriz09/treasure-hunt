@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import Players from "./Players";
-import Board from "./Board";
 import Expedition from "./Expedition";
 import { CardContext } from "./CardContext";
 
@@ -70,9 +69,6 @@ export default function MultiSelect({ onSubmit }) {
     createPlayers(players);
 
     assignTreasures(players)
-
-    // Update current board number to be the num of players times two
-    // setState(state => ({ ...state, currentTreasure: players * 2 }));
 
     // set number of players
     setState(state => ({ ...state, numPlayers: players }));

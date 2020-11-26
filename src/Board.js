@@ -29,8 +29,6 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
 
     setGameboard(squares);
     setTurn(turnBoard);
-    console.log("tb", turnBoard);
-    console.log("gb", gameBoard);
   }
 
   //where r (rows) and c (columns) are 0-3
@@ -53,7 +51,7 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
     }
 
     // See if board is complete
-    if (isBoardComplete(gameBoard) === 16) {
+    if (isBoardComplete(gameBoard)) {
       console.log('card complete', playerid, boardid)
 
       setTurn(blankBoard);
@@ -69,7 +67,7 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
     gameBoard.forEach(row => {
       currentRowSums.push(row.reduce(add));
     })
-    return currentRowSums.reduce(add);
+    return currentRowSums.reduce(add) === 16;
   }
 
   return (
