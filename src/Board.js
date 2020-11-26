@@ -6,13 +6,14 @@ import { CardContext } from "./CardContext";
 export default function Board({ playerid, boardid, grid, color, value, resetBoard}) {
   const [state, setState] = useContext(CardContext);
   const [gameBoard, setGameboard] = useState(grid);
+  const blankBoard = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ];
 
-  const [turn, setTurn] = useState([
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-  ]);
+  const [turn, setTurn] = useState(blankBoard);
 
   function handleClick(r, c) {
     let squares = grid.slice();
@@ -46,12 +47,7 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
 
     if (isValid) {
       console.log("Shape is valid!");
-      setTurn([
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-      ]);
+      setTurn(blankBoard);
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
@@ -60,22 +56,9 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
     if (isBoardComplete(gameBoard) === 16) {
       console.log('card complete', playerid, boardid)
 
-      setTurn([
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-      ]);
-
-      // setGameboard([
-      //   ['?', '?', '?', '?'],
-      //   ['?', '?', '?', '?'],
-      //   ['?', '?', '?', '?'],
-      //   ['?', '?', '?', '?'],
-      // ]);
+      setTurn(blankBoard);
 
       const newGrid = resetBoard(playerid, boardid);
-      console.log('ng', newGrid)
       setGameboard(newGrid.grid);
     }
   }
