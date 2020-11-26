@@ -1,29 +1,77 @@
 import React, { useContext, useState } from "react";
-import Board from "./Board";
+import Players from "./Players";
 import Expedition from "./Expedition";
 import { CardContext } from "./CardContext";
 
+
 export default function MultiSelect({ onSubmit }) {
   const [option, setOption] = useState({ value: "2" });
-  const [multiplayer, setMultiplayer] = useState("");
+  const [playersArr, setPlayersArr] = useState([]);
+  const [state, setState] = useContext(CardContext);
+
+  // create <player> components
+  const createPlayers = (players) => {
+    let temp = []
+    for (let i = 0; i < players; i++) {
+      temp.push(<Players playerid={i} key={i}/>)
+    }
+    setPlayersArr(temp);
+  }
+
+  // assign treasures to each player
+  const assignTreasures = (players) => {
+
+    // get details from state
+    let treasureDeck = state.treasureDeck.slice();
+    let currentTreasure = state.currentTreasure;
+
+    // for each player
+    for (let p = 0; p < players; p++) {
+
+      // for each board [2 is hardcoded here]
+      for (let b = 0; b < 2; b++) {
+
+        // for player one
+        if (p === 0){
+          let hand = state.playerOne;
+          hand.current.push(treasureDeck[currentTreasure++])
+          setState(state => ({ ...state, playerOne: hand }));
+
+        // for player two
+        } else if (p === 1) {
+          let hand = state.playerTwo;
+          hand.current.push(treasureDeck[currentTreasure++])
+          setState(state => ({ ...state, playerTwo: hand }));
+
+        // for player three
+        } else if (p === 2) {
+          let hand = state.playerThree;
+          hand.current.push(treasureDeck[currentTreasure++])
+          setState(state => ({ ...state, playerThree: hand }));
+
+        // for player four
+        } else if (p === 3){
+          let hand = state.playerFour;
+          hand.current.push(treasureDeck[currentTreasure++])
+          setState(state => ({ ...state, playerFour: hand }));
+        }
+      }
+    }
+    // remove used treasure cards from deck
+    treasureDeck = treasureDeck.slice(currentTreasure)
+    setState(state => ({ ...state, treasureDeck }));
+  }
+  
 
   const handleSubmit = (e, players) => {
     e.preventDefault();
 
-    let newArray = [];
-    let boardId = 0;
-    for (let i = 0; i < players; i++) {
-      newArray.push([
-        <div style={{ display: "flex" }}>
-          <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>
-            Player {i + 1}
-          </h3>
-          <Board playerId={i} boardId={boardId++} />
-          <Board playerId={i} boardId={boardId++} />
-        </div>,
-      ]);
-    }
-    setMultiplayer(newArray);
+    createPlayers(players);
+
+    assignTreasures(players)
+
+    // set number of players
+    setState(state => ({ ...state, numPlayers: players }));
   };
 
   return (
@@ -45,7 +93,11 @@ export default function MultiSelect({ onSubmit }) {
         <input type="submit" value="Submit" />
       </form>
       <Expedition />
-      {multiplayer}
+      {
+        playersArr.map((player) => {
+          return player;
+        })
+      }
     </div>
   );
 }

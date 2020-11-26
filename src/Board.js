@@ -3,19 +3,20 @@ import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
 
-export default function Board(props) {
+export default function Board({ playerid, boardid, grid, color, value, resetBoard}) {
   const [state, setState] = useContext(CardContext);
-  const [gameBoard, setGameboard] = useState(state.treasureDeck[props.boardId].grid);
+  const [gameBoard, setGameboard] = useState(grid);
+  const blankBoard = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ];
 
-  const [turn, setTurn] = useState([
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-  ]);
+  const [turn, setTurn] = useState(blankBoard);
 
   function handleClick(r, c) {
-    let squares = state.treasureDeck[props.boardId].grid.slice();
+    let squares = grid.slice();
     let turnBoard = turn.slice();
 
     if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
@@ -28,8 +29,6 @@ export default function Board(props) {
 
     setGameboard(squares);
     setTurn(turnBoard);
-    console.log("tb", turnBoard);
-    console.log("gb", gameBoard);
   }
 
   //where r (rows) and c (columns) are 0-3
@@ -46,30 +45,19 @@ export default function Board(props) {
 
     if (isValid) {
       console.log("Shape is valid!");
-      setTurn([
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-      ]);
+      setTurn(blankBoard);
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
 
     // See if board is complete
-    if (isBoardComplete(gameBoard) === 16) {
-      // Board is complete! Add it to the users completed boards.
-      // To do: Generate a new board for the user.
+    if (isBoardComplete(gameBoard)) {
+      console.log('card complete', playerid, boardid)
 
-      // Get all players cards
-      let playersCards = [...state.players];
-      let playerCards = playersCards[props.boardId].cards
-      let currentCard = {...state.treasureDeck[props.boardId]};
-      // Push the completed card to the users array
-      let updatedPlayers = [...playersCards, playerCards.push(currentCard)];
+      setTurn(blankBoard);
 
-      // Update state
-      setState(state => ({ ...state, players : [...updatedPlayers] }));
+      const newGrid = resetBoard(playerid, boardid);
+      setGameboard(newGrid.grid);
     }
   }
 
@@ -79,13 +67,13 @@ export default function Board(props) {
     gameBoard.forEach(row => {
       currentRowSums.push(row.reduce(add));
     })
-    return currentRowSums.reduce(add);
+    return currentRowSums.reduce(add) === 16;
   }
 
   return (
-    <div style={{ margin: "20px" }} boardId={props.boardId}>
-      <p>Points: {state.treasureDeck[props.boardId].value}</p>
-      <p>Color: {state.treasureDeck[props.boardId].color}</p>
+    <div style={{ margin: "20px" }} boardid={boardid}>
+      <p>Points: {value}</p>
+      <p>Color: {color}</p>
       <div className="board-row">
         {renderSquare(0, 0)}
         {renderSquare(0, 1)}
