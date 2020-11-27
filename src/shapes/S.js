@@ -10,14 +10,9 @@ export const isSshape = (selection, info) => {
     });
     const oneBLogic = isFour(currentRowSums);
     // 1a.
-    console.log(
-      info + " sums OK? ",
-      JSON.stringify(currentRowSums.sort()) == JSON.stringify(correctRowSums)
-    );
     if (JSON.stringify(currentRowSums.sort()) != JSON.stringify(correctRowSums))
       isS = false;
 
-    console.log(info + " sums in good order? ", oneBLogic);
     if (!oneBLogic) isS = false;
   };
 
@@ -28,16 +23,13 @@ export const isSshape = (selection, info) => {
   });
 
   // 1c.
-  console.log(
-    info + " cols OK? ",
-    JSON.stringify(sum.sort()) == JSON.stringify(correctColumnSums)
-  );
+
   if (JSON.stringify(sum.sort()) != JSON.stringify(correctColumnSums))
     isS = false;
 
   // 1d.
   const cleanSum = sum.filter((n) => n > 0);
-  console.log(info + " col in good order? ", ordered(cleanSum));
+
   if (!ordered(cleanSum)) isS = false;
 
   return isS;
