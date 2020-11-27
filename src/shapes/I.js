@@ -1,7 +1,4 @@
 export const isIshape = (selection, info) => {
-  let isI = true;
-
-  console.log({ selection, info });
   let rowSums = [];
   let columns = [[], [], [], []];
   let colSums = [];
@@ -22,14 +19,12 @@ export const isIshape = (selection, info) => {
   for (let col of columns) {
     colSums.push(col.reduce(add));
   }
-  console.log(colSums);
-  console.log(rowSums);
 
   // return true if first: one of the col's sums = 3 and consecutive row sums = 3 or second: vice-versa. If not, returns false. Removes need to rotate for this shape
-  return (isThree(colSums) && isAlsoThree(rowSums)) ||
+  return (
+    (isThree(colSums) && isAlsoThree(rowSums)) ||
     (isThree(rowSums) && isAlsoThree(colSums))
-    ? isI
-    : (isI = false);
+  );
 };
 
 const isThree = (arr) =>
