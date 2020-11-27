@@ -1,5 +1,6 @@
 import { isLshape } from "./L";
 import { isSshape } from "./S";
+import { isIshape } from "./I";
 
 export const validateShape = (selection, info, expedition) => {
   let id = expedition.id;
@@ -39,13 +40,14 @@ export const validateShape = (selection, info, expedition) => {
       break;
 
     case "I":
-      // todo: validate
-      console.log("no validation for this shape yet");
-      valid = true;
-      break;
+      // validate L
+      const isOKishape = isIshape(selection, info);
 
-    default:
-      valid = true;
+      if (isOKishape) {
+        console.log("Shape is OK!");
+        valid = true;
+        break;
+      }
       break;
   }
 
