@@ -1,6 +1,7 @@
 import { isLshape } from "./L";
 import { isSshape } from "./S";
 import { isIshape } from "./I";
+import { isTshape } from "./T";
 
 export const validateShape = (selection, info, expedition) => {
   let id = expedition.id;
@@ -44,6 +45,17 @@ export const validateShape = (selection, info, expedition) => {
       const isOKishape = isIshape(selection, info);
 
       if (isOKishape) {
+        console.log("Shape is OK!");
+        valid = true;
+        break;
+      }
+      break;
+
+    case "T":
+      // validate L
+      const isOKtshape = isTshape(selection, info);
+
+      if (isOKtshape) {
         console.log("Shape is OK!");
         valid = true;
         break;
