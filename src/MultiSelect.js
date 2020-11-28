@@ -23,7 +23,7 @@ export default function MultiSelect({ onSubmit }) {
 
     // get details from state
     let treasureDeck = state.treasureDeck.slice();
-    let currentTreasure = state.currentTreasure;
+    let currentTreasure = 0;
 
     // for each player
     for (let p = 0; p < players; p++) {
@@ -34,24 +34,28 @@ export default function MultiSelect({ onSubmit }) {
         // for player one
         if (p === 0){
           let hand = state.playerOne;
+          if (hand.current.length >= 2) return; // players can have two cards max
           hand.current.push(treasureDeck[currentTreasure++])
           setState(state => ({ ...state, playerOne: hand }));
 
         // for player two
         } else if (p === 1) {
           let hand = state.playerTwo;
+          if (hand.current.length >= 2) return; // players can have two cards max
           hand.current.push(treasureDeck[currentTreasure++])
           setState(state => ({ ...state, playerTwo: hand }));
 
         // for player three
         } else if (p === 2) {
           let hand = state.playerThree;
+          if (hand.current.length >= 2) return; // players can have two cards max
           hand.current.push(treasureDeck[currentTreasure++])
           setState(state => ({ ...state, playerThree: hand }));
 
         // for player four
         } else if (p === 3){
           let hand = state.playerFour;
+          if (hand.current.length >= 2) return; // players can have two cards max
           hand.current.push(treasureDeck[currentTreasure++])
           setState(state => ({ ...state, playerFour: hand }));
         }
