@@ -7,20 +7,56 @@ export default function Expedition() {
   function handleRoundChange() {
     if (state.currentRound < 7) {
       setState((state) => ({ ...state, currentRound: state.currentRound + 1 }));
+    } else if (state.currentPhase === 4) {
+      // The game is over
+      endGame();
     } else {
-      // generate new expedition deck and reset round to 1
+      // generate new expedition deck, increase phase, and reset round to 1
       setState((state) => ({
         ...state,
         currentRound: 1,
-        expeditionDeck: NewExpeditionDeck(),
+        curentPhase: ++state.currentPhase,
+        expeditionDeck: NewExpeditionDeck()
       }));
     }
+  }
+
+  const endGame = () => {
+    // To do: Eventually this should figure out who has the highest score
+    // and congratulate that player
+    const finalScores = [
+      { 
+        name: "Player One",
+        score: state.playerOne.score().score
+      },
+      { 
+        name: "Player Two",
+        score: state.playerTwo.score().score
+      },
+      { 
+        name: "Player Three",
+        score: state.playerThree.score().score
+      },
+      { 
+        name: "Player Four",
+        score: state.playerFour.score().score
+      }
+    ]
+
+    let winningText = ""
+    for (let i = 0; i < state.numPlayers; i++) {
+      winningText += `${finalScores[i].name}: ${finalScores[i].score}`
+      if (i+1 < state.numPlayers) winningText += "\n"
+    }
+
+    alert("Game over! Final scores:\n" + winningText);
   }
 
   return (
     <div>
       <div>
-        <div>Expedition card #{state.currentRound}/7</div>
+        <div>Phase #{state.currentPhase}/4</div>
+        <div>Expedition card: #{state.currentRound}/7</div>
         Current expedition card:{" "}
         <b>{state.expeditionDeck[state.currentRound].name}</b>
         <img
