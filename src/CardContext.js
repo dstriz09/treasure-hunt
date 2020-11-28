@@ -25,7 +25,6 @@ const CardContextProvider = (props) => {
     treasureDeck: NewTreasureDeck(),
     currentRound: 1, // seven rounds per phase
     currentPhase: 1, // four phases per game
-    currentTreasure: 0,
     numPlayers: null,
     playerOne: { current: [], complete: [] },
     playerTwo: { current: [], complete: [] },
