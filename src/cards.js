@@ -10,64 +10,41 @@ export const EXPEDITIONS = [
     name: "Square",
     id: "S",
     rawShape: s,
-    //   [
-    //   ["x", "x"],
-    //   ["x", "x"],
-    // ],
   },
   {
     name: "Uppercase L",
     id: "L",
     rawShape: l,
-    //   [
-    //   ["x", "x", "x"],
-    //   ["x", "", ""],
-    // ],
   },
   {
     name: "Tetris",
     id: "T",
     rawShape: tetris,
-    //   [
-    //   [" ", "x", " "],
-    //   ["x", "x", "x"],
-    // ],
   },
   {
     name: "Long I",
     id: "I",
     rawShape: longI,
-    // [["x", "x", "x"]],
   },
   {
     name: "Long I",
     id: "I",
     rawShape: longI,
-    // [["x", "x", "x"]],
   },
   {
     name: "Bend",
     id: "B",
     rawShape: bend,
-    //   [
-    //   ["x", "x"],
-    //   ["x", ""],
-    // ],
   },
   {
     name: "Bend",
     id: "B",
     rawShape: bend,
-    //   [
-    //   ["x", "x"],
-    //   ["x", ""],
-    // ],
   },
   {
     name: "Dash",
     id: "D",
     rawShape: dash,
-    // [["x", "x"]],
   },
 ];
 
