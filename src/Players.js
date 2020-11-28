@@ -5,18 +5,22 @@ import { CardContext } from "./CardContext";
 export default function Player({ playerid }) {
   const [state, setState] = useContext(CardContext);
 
+  // get the players hand
+  const getHand = (p) => {
+    let hand = [];
+    if (p === 0) hand = state.playerOne; // player one
+    if (p === 1) hand = state.playerTwo; // player two 
+    if (p === 2) hand = state.playerThree; // player three
+    if (p === 3) hand = state.playerFour; // player four
+    return hand;
+  }
+
   // called from the board component
   const resetBoard = (playerid, boardid) => {
-    let hand = [];
     // create a copy of the treasure deck
     let treasureDeck = state.treasureDeck.slice();
-
-    // create a copy of the players hand
-    if (playerid === 0) hand = state.playerOne; // player one
-    if (playerid === 1) hand = state.playerTwo; // player two 
-    if (playerid === 2) hand = state.playerThree; // player three
-    if (playerid === 3) hand = state.playerFour; // player four
-
+    // get the players hand
+    let hand = getHand(playerid);
     // select the finished card
     let finishedCard = hand.current[boardid];
     // push to complete deck
@@ -39,20 +43,17 @@ export default function Player({ playerid }) {
   }
 
   const CreateBoards = () => {
-    
-    let hand = [];
-    if (playerid === 0) hand = state.playerOne.current; // player one
-    if (playerid === 1) hand = state.playerTwo.current; // player two 
-    if (playerid === 2) hand = state.playerThree.current; // player three
-    if (playerid === 3) hand = state.playerFour.current; // player four
+    let hand = getHand(playerid);
 
     // create <board> components for each current card
     let playerComponentArr = [];
-    hand.forEach((card, i) => {
+
+    hand.current.forEach((card, i) => {
       playerComponentArr.push([
         <Board 
           playerid={playerid}
           boardid={i}
+          key={playerid*2+i}
           grid={card.grid}
           color={card.color}
           value={card.value}
@@ -61,6 +62,21 @@ export default function Player({ playerid }) {
       ])
     })
     return playerComponentArr
+  }
+
+  const CreateScoreCard = () => {
+    let score = {
+      score: 0,
+      completedCards: 0,
+    };
+    let hand = getHand(playerid);
+    if (hand.complete.length === 0) return score;
+
+    hand.complete.forEach((card, i) => {
+      score.score += card.value;
+      score.completedCards += 1;
+    })
+    return score;
   }
 
   return (
@@ -73,6 +89,9 @@ export default function Player({ playerid }) {
           return board;
         })
       }
+      Completed cards: {CreateScoreCard().completedCards}
+      <br />
+      Score: {CreateScoreCard().score}
     </div>
   )
 }
