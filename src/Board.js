@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
+// import { boolean } from "yargs";
 
 export default function Board({ playerid, boardid, grid, color, value, resetBoard}) {
   const [state, setState] = useContext(CardContext);
@@ -12,6 +13,7 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
+  // const original = grid.slice()
 
   const [turn, setTurn] = useState(blankBoard);
 
@@ -19,10 +21,14 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
     let squares = grid.slice();
     let turnBoard = turn.slice();
 
-    if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
-      squares[r][c] = 1;
-      turnBoard[r][c] = 1;
-    } else if (turnBoard[r][c] === 1) {
+    if (!squares[r][c] && !turnBoard[r][c]) {
+      // disallow more clicks than there are squares in each shapes
+      let max = state.expeditionDeck[state.currentRound].squares;
+      if (turnBoard.flat().filter(Boolean).length >= max) return
+
+      squares[r][c] = "x";
+      turnBoard[r][c] = "x";
+    } else if (turnBoard[r][c] === "x") {
       squares[r][c] = 0;
       turnBoard[r][c] = 0;
     }
@@ -37,15 +43,26 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
   }
 
   function handleSubmit() {
-    const isValid = validateShape(
-      turn,
-      "original",
-      state.expeditionDeck[state.currentRound]
-    );
+    const isValid = true
+    // const isValid = validateShape(
+    //   turn,
+    //   "original",
+    //   state.expeditionDeck[state.currentRound]
+    // );
 
     if (isValid) {
       console.log("Shape is valid!");
+
+      // convert "x"s to 1s
+      let squares = grid.slice();
+      grid.forEach((row, x) => {
+        row.forEach((cell, y) => {
+          if (cell === "x") grid[x][y] = 2;
+        })
+      })
+      setGameboard(grid)
       setTurn(blankBoard);
+
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
@@ -62,12 +79,9 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
   }
 
   function isBoardComplete (board) {
-    let currentRowSums = []; 
-    const add = (total, num) => total + num;
-    gameBoard.forEach(row => {
-      currentRowSums.push(row.reduce(add));
-    })
-    return currentRowSums.reduce(add) === 16;
+    let flat = board.flat();
+    let removeFalsy = flat.filter(Boolean);
+    return removeFalsy.length === 16;
   }
 
   return (

@@ -10,41 +10,49 @@ export const EXPEDITIONS = [
     name: "Square",
     id: "S",
     rawShape: s,
+    squares: 4,
   },
   {
     name: "Uppercase L",
     id: "L",
     rawShape: l,
+    squares: 4,
   },
   {
     name: "Tetris",
     id: "T",
     rawShape: tetris,
+    squares: 4,
   },
   {
     name: "Long I",
     id: "I",
     rawShape: longI,
+    squares: 3,
   },
   {
     name: "Long I",
     id: "I",
     rawShape: longI,
+    squares: 3,
   },
   {
     name: "Bend",
     id: "B",
     rawShape: bend,
+    squares: 3,
   },
   {
     name: "Bend",
     id: "B",
     rawShape: bend,
+    squares: 3,
   },
   {
     name: "Dash",
     id: "D",
     rawShape: dash,
+    squares: 2,
   },
 ];
 

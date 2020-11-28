@@ -1,0 +1,27 @@
+.locked {
+  background-color: grey;
+  /* font-size: 0px; */
+  height: 30px;
+  width: 30px;
+}
+
+.selected {
+  background-color: greenyellow;
+  /* font-size: 0px; */
+  height: 30px;
+  width: 30px;
+}
+
+.submitted {
+  background-color: goldenrod;
+  /* font-size: 0px; */
+  height: 30px;
+  width: 30px;
+}
+
+.empty {
+  background-color: white;
+  /* font-size: 0px; */
+  height: 30px;
+  width: 30px;
+}
