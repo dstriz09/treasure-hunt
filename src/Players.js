@@ -64,6 +64,21 @@ export default function Player({ playerid }) {
     return playerComponentArr
   }
 
+  const CreateScoreCard = () => {
+    let score = {
+      score: 0,
+      completedCards: 0,
+    };
+    let hand = getHand(playerid);
+    if (hand.complete.length === 0) return score;
+
+    hand.complete.forEach((card, i) => {
+      score.score += card.value;
+      score.completedCards += 1;
+    })
+    return score;
+  }
+
   return (
     <div style={{ display: "flex" }}>
       <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>
@@ -74,6 +89,9 @@ export default function Player({ playerid }) {
           return board;
         })
       }
+      Completed cards: {CreateScoreCard().completedCards}
+      <br />
+      Score: {CreateScoreCard().score}
     </div>
   )
 }
