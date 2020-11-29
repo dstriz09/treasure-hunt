@@ -29,7 +29,7 @@ export default function Board({
     if (!squares[r][c] && !turnBoard[r][c]) {
       // disallow more clicks than there are squares in each shapes
       let max = state.expeditionDeck[state.currentRound].squares;
-      if (turnBoard.flat().filter(Boolean).length >= max) return
+      if (turnBoard.flat().filter(Boolean).length >= max) return;
 
       squares[r][c] = "x";
       turnBoard[r][c] = "x";
@@ -52,20 +52,18 @@ export default function Board({
       turn,
       state.expeditionDeck[state.currentRound]
     );
-
     if (isValid) {
       console.log("Shape is valid!");
 
       // convert "x"s to 1s
       let squares = grid.slice();
-      grid.forEach((row, x) => {
+      squares.forEach((row, x) => {
         row.forEach((cell, y) => {
           if (cell === "x") grid[x][y] = 2;
-        })
-      })
-      setGameboard(grid)
+        });
+      });
+      setGameboard(squares);
       setTurn(blankBoard);
-
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
@@ -81,7 +79,7 @@ export default function Board({
     }
   }
 
-  function isBoardComplete (board) {
+  function isBoardComplete(board) {
     let flat = board.flat();
     let removeFalsy = flat.filter(Boolean);
     return removeFalsy.length === 16;
