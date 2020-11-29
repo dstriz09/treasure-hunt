@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
-// import { boolean } from "yargs";
 
 export default function Board({
   playerid,
@@ -20,7 +19,6 @@ export default function Board({
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
-  // const original = grid.slice()
 
   const [turn, setTurn] = useState(blankBoard);
 

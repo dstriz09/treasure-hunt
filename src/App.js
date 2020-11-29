@@ -1,6 +1,4 @@
 import React from "react";
-// import Board from "./Board";
-
 import MultiSelect from "./MultiSelect";
 import CardContextProvider from "./CardContext";
 

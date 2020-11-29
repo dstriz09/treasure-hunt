@@ -4,6 +4,7 @@ export const validateShape = (selection, expedition) => {
   let rowRegex = expedition.rowRegex;
   let colRegex = expedition.colRegex;
 
+  // convert 'x's into 1s for validation
   let cleanedSelection = [];
   for (let i = 0; i < selection.length; i++) {
     cleanedSelection[i] = selection[i].map((old) => {
