@@ -1,5 +1,4 @@
 export const isShapeValid = (selection, rowRegex, colRegex) => {
-  console.log(selection);
   let rowSums = [];
   let columns = [[], [], [], []];
   let colSums = [];
