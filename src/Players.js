@@ -64,19 +64,11 @@ export default function Player({ playerid }) {
     return playerComponentArr
   }
 
-  const CreateScoreCard = () => {
-    let score = {
-      score: 0,
-      completedCards: 0,
-    };
-    let hand = getHand(playerid);
-    if (hand.complete.length === 0) return score;
-
-    hand.complete.forEach((card, i) => {
-      score.score += card.value;
-      score.completedCards += 1;
-    })
-    return score;
+  const getScore = (p) => {
+    if (p === 0) return state.playerOne.score() // player one
+    if (p === 1) return state.playerTwo.score()  // player two 
+    if (p === 2) return state.playerThree.score()  // player three
+    if (p === 3) return state.playerFour.score()  // player four
   }
 
   return (
@@ -89,9 +81,9 @@ export default function Player({ playerid }) {
           return board;
         })
       }
-      Completed cards: {CreateScoreCard().completedCards}
+      Completed cards: {getScore(playerid).completedCards}
       <br />
-      Score: {CreateScoreCard().score}
+      Score: {getScore(playerid).score}
     </div>
   )
 }

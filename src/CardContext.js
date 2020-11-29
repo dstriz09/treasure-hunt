@@ -19,6 +19,20 @@ const shuffle = (deck) => {
     .map((a) => a.value)
 }
 
+const score = function() {
+  let score = {
+    score: 0,
+    completedCards: 0,
+  };
+  if (this.complete.length === 0) return score;
+
+  this.complete.forEach((card, i) => {
+    score.score += card.value;
+    score.completedCards += 1;
+  })
+  return score;
+}
+
 const CardContextProvider = (props) => {
   const [state, setState] = useState({
     expeditionDeck: NewExpeditionDeck(),
@@ -26,10 +40,10 @@ const CardContextProvider = (props) => {
     currentRound: 1, // seven rounds per phase
     currentPhase: 1, // four phases per game
     numPlayers: null,
-    playerOne: { current: [], complete: [] },
-    playerTwo: { current: [], complete: [] },
-    playerThree: { current: [], complete: [] },
-    playerFour: { current: [], complete: [] },
+    playerOne: { current: [], complete: [], score },
+    playerTwo: { current: [], complete: [], score },
+    playerThree: { current: [], complete: [], score },
+    playerFour: { current: [], complete: [], score },
   });
   
   return (
