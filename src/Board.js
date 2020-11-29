@@ -3,7 +3,14 @@ import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
 
-export default function Board({ playerid, boardid, grid, color, value, resetBoard}) {
+export default function Board({
+  playerid,
+  boardid,
+  grid,
+  color,
+  value,
+  resetBoard,
+}) {
   const [state, setState] = useContext(CardContext);
   const [gameBoard, setGameboard] = useState(grid);
   const blankBoard = [
@@ -39,7 +46,6 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
   function handleSubmit() {
     const isValid = validateShape(
       turn,
-      "original",
       state.expeditionDeck[state.currentRound]
     );
 
@@ -52,7 +58,7 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
 
     // See if board is complete
     if (isBoardComplete(gameBoard)) {
-      console.log('card complete', playerid, boardid)
+      console.log("card complete", playerid, boardid);
 
       setTurn(blankBoard);
 
@@ -61,12 +67,12 @@ export default function Board({ playerid, boardid, grid, color, value, resetBoar
     }
   }
 
-  function isBoardComplete (board) {
-    let currentRowSums = []; 
+  function isBoardComplete(board) {
+    let currentRowSums = [];
     const add = (total, num) => total + num;
-    gameBoard.forEach(row => {
+    gameBoard.forEach((row) => {
       currentRowSums.push(row.reduce(add));
-    })
+    });
     return currentRowSums.reduce(add) === 16;
   }
 

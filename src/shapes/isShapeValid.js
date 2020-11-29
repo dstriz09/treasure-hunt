@@ -1,4 +1,4 @@
-export const isTshape = (selection, info) => {
+export const isShapeValid = (selection, rowRegex, colRegex) => {
   let rowSums = [];
   let columns = [[], [], [], []];
   let colSums = [];
@@ -20,8 +20,10 @@ export const isTshape = (selection, info) => {
     colSums.push(col.reduce(add));
   }
 
-  console.log({ rowSums });
-  console.log({ colSums });
+  colSums = colSums.join("");
+  rowSums = rowSums.join("");
+
+  return colRegex.test(colSums) && rowRegex.test(rowSums);
 };
 
 const add = (acc, curr) => acc + curr;
