@@ -39,7 +39,7 @@ export default function Board({
     }
 
     setGameboard(squares);
-    setTurn(turnBoard)
+    setTurn(turnBoard);
   }
 
   //where r (rows) and c (columns) are 0-3
