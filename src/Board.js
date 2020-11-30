@@ -15,7 +15,6 @@ export default function Board({
 }) {
   const [state, setState] = useContext(CardContext);
   const [gameBoard, setGameboard] = useState(grid);
-  // const [playerSubmit, setPlayerSubmit] = useState(0);
   const blankBoard = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -58,31 +57,32 @@ export default function Board({
       turn,
       state.expeditionDeck[state.currentRound]
     );
-
-    if (isValid) {
-      console.log("Shape is valid!");
-      // convert "x"s to 1s
-      grid.forEach((row, x) => {
-        row.forEach((cell, y) => {
-          if (cell === "x") grid[x][y] = 2;
+    if (checkForPlayerSubmit() === 0) {
+      if (isValid) {
+        console.log("Shape is valid!");
+        // convert "x"s to 1s
+        grid.forEach((row, x) => {
+          row.forEach((cell, y) => {
+            if (cell === "x") grid[x][y] = 2;
+          });
         });
-      });
 
-      setGameboard(grid);
-      setTurn(blankBoard);
-
-      // Sees if number of submissions in the round matches the number of players
-      handlePlayerSubmits();
-
-      // See if board is complete
-      if (isBoardComplete(gameBoard)) {
+        setGameboard(grid);
         setTurn(blankBoard);
 
-        const newGrid = resetBoard(playerid, boardid);
-        setGameboard(newGrid.grid);
+        // Sees if number of submissions in the round matches the number of players
+        handlePlayerSubmits();
+
+        // See if board is complete
+        if (isBoardComplete(gameBoard)) {
+          setTurn(blankBoard);
+
+          const newGrid = resetBoard(playerid, boardid);
+          setGameboard(newGrid.grid);
+        }
+      } else {
+        alert("BAD SHAPE. TRY AGAIN");
       }
-    } else {
-      alert("BAD SHAPE. TRY AGAIN");
     }
   }
 
