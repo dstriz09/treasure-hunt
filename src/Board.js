@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
+import { toast } from 'react-toastify';
 
 export default function Board({
   playerid,
@@ -29,7 +30,18 @@ export default function Board({
     if (!squares[r][c] && !turnBoard[r][c]) {
       // disallow more clicks than there are squares in each shapes
       let max = state.expeditionDeck[state.currentRound].squares;
-      if (turnBoard.flat().filter(Boolean).length >= max) return
+      if (turnBoard.flat().filter(Boolean).length >= max) {
+        toast.warn('Oops! Too many squares selected', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+        return
+      }
 
       squares[r][c] = "x";
       turnBoard[r][c] = "x";
@@ -69,12 +81,29 @@ export default function Board({
       // See if board is complete
       if (isBoardComplete(gameBoard)) {
         setTurn(blankBoard);
-
         const newGrid = resetBoard(playerid, boardid);
         setGameboard(newGrid.grid);
+
+        toast.success('🎉 Card completed!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } else {
-      alert("BAD SHAPE. TRY AGAIN");
+      toast.error('Invalid shape. Please try again.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
     }
   }
 
