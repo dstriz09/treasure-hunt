@@ -39,7 +39,7 @@ export default function Board({
     }
 
     setGameboard(squares);
-    setTurn(turnBoard);
+    setTurn(turnBoard)
   }
 
   //where r (rows) and c (columns) are 0-3
@@ -57,27 +57,24 @@ export default function Board({
       console.log("Shape is valid!");
 
       // convert "x"s to 1s
-      let squares = grid.slice();
       grid.forEach((row, x) => {
         row.forEach((cell, y) => {
           if (cell === "x") grid[x][y] = 2;
         })
       })
+
       setGameboard(grid)
       setTurn(blankBoard);
 
+      // See if board is complete
+      if (isBoardComplete(gameBoard)) {
+        setTurn(blankBoard);
+
+        const newGrid = resetBoard(playerid, boardid);
+        setGameboard(newGrid.grid);
+      }
     } else {
       alert("BAD SHAPE. TRY AGAIN");
-    }
-
-    // See if board is complete
-    if (isBoardComplete(gameBoard)) {
-      console.log("card complete", playerid, boardid);
-
-      setTurn(blankBoard);
-
-      const newGrid = resetBoard(playerid, boardid);
-      setGameboard(newGrid.grid);
     }
   }
 
