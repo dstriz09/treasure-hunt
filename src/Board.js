@@ -26,10 +26,14 @@ export default function Board({
     let squares = grid.slice();
     let turnBoard = turn.slice();
 
-    if (squares[r][c] !== 1 && turnBoard[r][c] !== 1 && squares[r][c] !== "X") {
-      squares[r][c] = 1;
-      turnBoard[r][c] = 1;
-    } else if (turnBoard[r][c] === 1) {
+    if (!squares[r][c] && !turnBoard[r][c]) {
+      // disallow more clicks than there are squares in each shapes
+      let max = state.expeditionDeck[state.currentRound].squares;
+      if (turnBoard.flat().filter(Boolean).length >= max) return
+
+      squares[r][c] = "x";
+      turnBoard[r][c] = "x";
+    } else if (turnBoard[r][c] === "x") {
       squares[r][c] = 0;
       turnBoard[r][c] = 0;
     }
@@ -51,29 +55,33 @@ export default function Board({
 
     if (isValid) {
       console.log("Shape is valid!");
+
+      // convert "x"s to 1s
+      grid.forEach((row, x) => {
+        row.forEach((cell, y) => {
+          if (cell === "x") grid[x][y] = 2;
+        })
+      })
+
+      setGameboard(grid)
       setTurn(blankBoard);
+
+      // See if board is complete
+      if (isBoardComplete(gameBoard)) {
+        setTurn(blankBoard);
+
+        const newGrid = resetBoard(playerid, boardid);
+        setGameboard(newGrid.grid);
+      }
     } else {
       alert("BAD SHAPE. TRY AGAIN");
     }
-
-    // See if board is complete
-    if (isBoardComplete(gameBoard)) {
-      console.log("card complete", playerid, boardid);
-
-      setTurn(blankBoard);
-
-      const newGrid = resetBoard(playerid, boardid);
-      setGameboard(newGrid.grid);
-    }
   }
 
-  function isBoardComplete(board) {
-    let currentRowSums = [];
-    const add = (total, num) => total + num;
-    gameBoard.forEach((row) => {
-      currentRowSums.push(row.reduce(add));
-    });
-    return currentRowSums.reduce(add) === 16;
+  function isBoardComplete (board) {
+    let flat = board.flat();
+    let removeFalsy = flat.filter(Boolean);
+    return removeFalsy.length === 16;
   }
 
   return (
