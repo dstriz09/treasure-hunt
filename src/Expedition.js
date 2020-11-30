@@ -16,7 +16,7 @@ export default function Expedition() {
         ...state,
         currentRound: 1,
         curentPhase: ++state.currentPhase,
-        expeditionDeck: NewExpeditionDeck()
+        expeditionDeck: NewExpeditionDeck(),
       }));
     }
   }
@@ -25,32 +25,32 @@ export default function Expedition() {
     // To do: Eventually this should figure out who has the highest score
     // and congratulate that player
     const finalScores = [
-      { 
+      {
         name: "Player One",
-        score: state.playerOne.score().score
+        score: state.playerOne.score().score,
       },
-      { 
+      {
         name: "Player Two",
-        score: state.playerTwo.score().score
+        score: state.playerTwo.score().score,
       },
-      { 
+      {
         name: "Player Three",
-        score: state.playerThree.score().score
+        score: state.playerThree.score().score,
       },
-      { 
+      {
         name: "Player Four",
-        score: state.playerFour.score().score
-      }
-    ]
+        score: state.playerFour.score().score,
+      },
+    ];
 
-    let winningText = ""
+    let winningText = "";
     for (let i = 0; i < state.numPlayers; i++) {
-      winningText += `${finalScores[i].name}: ${finalScores[i].score}`
-      if (i+1 < state.numPlayers) winningText += "\n"
+      winningText += `${finalScores[i].name}: ${finalScores[i].score}`;
+      if (i + 1 < state.numPlayers) winningText += "\n";
     }
 
     alert("Game over! Final scores:\n" + winningText);
-  }
+  };
 
   return (
     <div>

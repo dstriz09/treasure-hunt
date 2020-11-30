@@ -6,20 +6,20 @@ export const CardContext = React.createContext([{}, () => {}]);
 
 export const NewExpeditionDeck = () => {
   return shuffle(EXPEDITIONS);
-}
+};
 
 export const NewTreasureDeck = () => {
   return shuffle(TREASURES);
-}
+};
 
 const shuffle = (deck) => {
   return deck
-    .map((a) => ({sort: Math.random(), value: a}))
+    .map((a) => ({ sort: Math.random(), value: a }))
     .sort((a, b) => a.sort - b.sort)
-    .map((a) => a.value)
-}
+    .map((a) => a.value);
+};
 
-const score = function() {
+const score = function () {
   let score = {
     score: 0,
     completedCards: 0,
@@ -29,9 +29,9 @@ const score = function() {
   this.complete.forEach((card, i) => {
     score.score += card.value;
     score.completedCards += 1;
-  })
+  });
   return score;
-}
+};
 
 const CardContextProvider = (props) => {
   const [state, setState] = useState({
@@ -44,13 +44,14 @@ const CardContextProvider = (props) => {
     playerTwo: { current: [], complete: [], score },
     playerThree: { current: [], complete: [], score },
     playerFour: { current: [], complete: [], score },
+    roundSubmits: 0,
   });
-  
+
   return (
     <CardContext.Provider value={[state, setState]}>
       {props.children}
     </CardContext.Provider>
-  )
+  );
 };
 
 export default CardContextProvider;

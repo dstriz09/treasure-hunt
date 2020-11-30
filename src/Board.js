@@ -10,9 +10,12 @@ export default function Board({
   color,
   value,
   resetBoard,
+  handlePlayerSubmits,
+  checkForPlayerSubmit,
 }) {
   const [state, setState] = useContext(CardContext);
   const [gameBoard, setGameboard] = useState(grid);
+  // const [playerSubmit, setPlayerSubmit] = useState(0);
   const blankBoard = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -29,8 +32,11 @@ export default function Board({
     if (!squares[r][c] && !turnBoard[r][c]) {
       // disallow more clicks than there are squares in each shapes
       let max = state.expeditionDeck[state.currentRound].squares;
-      if (turnBoard.flat().filter(Boolean).length >= max) return
-
+      if (
+        turnBoard.flat().filter(Boolean).length >= max ||
+        checkForPlayerSubmit()
+      )
+        return;
       squares[r][c] = "x";
       turnBoard[r][c] = "x";
     } else if (turnBoard[r][c] === "x") {
@@ -55,16 +61,18 @@ export default function Board({
 
     if (isValid) {
       console.log("Shape is valid!");
-
       // convert "x"s to 1s
       grid.forEach((row, x) => {
         row.forEach((cell, y) => {
           if (cell === "x") grid[x][y] = 2;
-        })
-      })
+        });
+      });
 
-      setGameboard(grid)
+      setGameboard(grid);
       setTurn(blankBoard);
+
+      // Sees if number of submissions in the round matches the number of players
+      handlePlayerSubmits();
 
       // See if board is complete
       if (isBoardComplete(gameBoard)) {
@@ -78,7 +86,7 @@ export default function Board({
     }
   }
 
-  function isBoardComplete (board) {
+  function isBoardComplete(board) {
     let flat = board.flat();
     let removeFalsy = flat.filter(Boolean);
     return removeFalsy.length === 16;
