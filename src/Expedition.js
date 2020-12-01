@@ -5,7 +5,6 @@ export default function Expedition() {
   const [state, setState] = useContext(CardContext);
 
   function handleRoundChange() {
-    console.log(state.roundSubmits);
     if (state.roundSubmits != state.numPlayers || state.numPlayers == null) {
       return;
     }
