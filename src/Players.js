@@ -22,16 +22,15 @@ export default function Player({ playerid }) {
   const handlePlayerSubmits = () => {
     roundSubmits++;
     playerSubmit++;
+    state.roundSubmits = roundSubmits;
     if (roundSubmits == state.numPlayers) {
       console.log("all players have submitted");
       playerSubmit = 0;
-    }
-    if ((playerSubmit = 1)) {
-      return playerSubmit;
+      roundSubmits = 0;
     }
   };
 
-  const checkForPlayerSubmit = (options) => {
+  const checkForPlayerSubmit = () => {
     return playerSubmit;
   };
 
