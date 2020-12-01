@@ -25,7 +25,6 @@ export default function Player({ playerid }) {
     state.roundSubmits = roundSubmits;
     if (roundSubmits == state.numPlayers) {
       console.log("all players have submitted");
-      playerSubmit = 0;
       roundSubmits = 0;
     }
   };
