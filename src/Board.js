@@ -36,6 +36,7 @@ export default function Board({
         checkForPlayerSubmit()
       )
         return;
+
       squares[r][c] = "x";
       turnBoard[r][c] = "x";
     } else if (turnBoard[r][c] === "x") {

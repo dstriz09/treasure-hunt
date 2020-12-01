@@ -12,10 +12,16 @@ export const validateShape = (selection, expedition) => {
         return 1;
       } else {
         return 0;
-      };
-    })
+      }
+    });
   }
-  
+  // for (i = 0; i < cleanedSelection.length; i++){
+  //   cleanedSelction[i].reduce((acc, curr) => acc+curr)
+  // }
+
+  let skipShapeTurn = cleanedSelection.flatMap((x) => x);
+  skipShapeTurn = skipShapeTurn.reduce((acc, curr) => acc + curr);
+  if (skipShapeTurn === 1) return true;
   const isOKshape = isShapeValid(cleanedSelection, rowRegex, colRegex);
 
   if (isOKshape) {
