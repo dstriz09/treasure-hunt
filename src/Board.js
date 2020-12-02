@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Square from "./Square";
 import { validateShape } from "./shapes/Shapes";
 import { CardContext } from "./CardContext";
@@ -12,9 +12,11 @@ export default function Board({
   value,
   resetBoard,
   handlePlayerSubmits,
+  originalGrid,
 }) {
   const [state, setState] = useContext(CardContext);
   const [gameBoard, setGameboard] = useState(grid);
+  const [revert, setRevert] = useState(originalGrid);
   const blankBoard = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -23,13 +25,14 @@ export default function Board({
   ];
 
   const [turn, setTurn] = useState(blankBoard);
+  const [hasCoin, setHasCoin] = useState(false);
+  const [coinUpdate, setCoinUpdate] = useState(0);
 
   function handleClick(r, c) {
     let squares = grid.slice();
     let turnBoard = turn.slice();
-
     // Handles individual square clicks
-    if (!squares[r][c] && !turnBoard[r][c]) {
+    if ((!squares[r][c] && !turnBoard[r][c]) || squares[r][c] === 3) {
       // disallow if a player has already submitted a shape
       if (state.roundSubmits[playerid] === 1) return;
       // disallow more clicks than there are squares in each shapes
@@ -47,11 +50,22 @@ export default function Board({
         return;
       }
 
+      //if a player selects a coin, it adds it to the total
+      if (squares[r][c] === 3) {
+        setHasCoin(true);
+      }
+
       squares[r][c] = "x";
       turnBoard[r][c] = "x";
     } else if (turnBoard[r][c] === "x") {
-      squares[r][c] = 0;
+      let originalBoard = revert.slice();
+      squares[r][c] = originalBoard[r][c];
       turnBoard[r][c] = 0;
+
+      //if a player deselects a coin, it removes it from the total
+      if (squares[r][c] === 3) {
+        setHasCoin(false);
+      }
     }
 
     setGameboard(squares);
@@ -60,12 +74,28 @@ export default function Board({
 
   //where r (rows) and c (columns) are 0-3
   function renderSquare(r, c) {
-    return <Square value={gameBoard[r][c]} onClick={() => handleClick(r, c)} />;
+    return (
+      <Square
+        value={gameBoard[r][c]}
+        onClick={() => {
+          handleClick(r, c);
+        }}
+      />
+    );
   }
+
+  //Every time coinUpdate updates (which is whenever a coin gets added), this fuction runs
+  useEffect(() => {
+    //add the coins to score when players reach 4, 8, and 12.
+    //Do this with state.coinBonus.pop() to assign the score and remove it from the array
+  }, [coinUpdate]);
 
   // Handles board submit
   function handleSubmit() {
-    const isValid = validateShape(turn, state.expeditionDeck[state.currentRound]);
+    const isValid = validateShape(
+      turn,
+      state.expeditionDeck[state.currentRound]
+    );
 
     if (state.roundSubmits[playerid] === 1) return;
     // If the shape matches the expedition card
@@ -84,11 +114,22 @@ export default function Board({
       // Sees if number of submissions in the round matches the number of players
       handlePlayerSubmits();
 
+      // Checks for coins and adds
+      if (hasCoin) {
+        let playerCoins = state.coins;
+        let count = coinUpdate;
+        playerCoins[playerid] += 1;
+        setState((state) => ({ ...state, coins: playerCoins }));
+        setHasCoin(false);
+        setCoinUpdate((count += 1));
+      }
+
       // See if board is complete
       if (isBoardComplete(gameBoard)) {
         setTurn(blankBoard);
         const newGrid = resetBoard(playerid, boardid);
         setGameboard(newGrid.grid);
+        setRevert(newGrid.grid);
         toast.success("🎉 Card completed!", {
           position: "top-right",
           autoClose: 3000,

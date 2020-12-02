@@ -74,6 +74,7 @@ export default function Player({ playerid }) {
           value={card.value}
           resetBoard={(p, b) => resetBoard(p, b)}
           handlePlayerSubmits={handlePlayerSubmits}
+          originalGrid={card.originalGrid}
         />,
       ]);
     });
@@ -98,6 +99,8 @@ export default function Player({ playerid }) {
       Completed cards: {getScore(playerid).completedCards}
       <br />
       Score: {getScore(playerid).score}
+      <br />
+      Coins: {state.coins[playerid]}
     </div>
   );
 }
