@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import Square from "./Square";
-import { validateShape } from "./shapes/Shapes";
+import { validateShape } from "../helpers/Shapes";
 import { CardContext } from "./CardContext";
 import { toast } from "react-toastify";
+import { warnToast, successToast, errorToast } from "../helpers/Toasts";
 
 export default function Board({
   playerid,
@@ -21,29 +22,21 @@ export default function Board({
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
-
   const [turn, setTurn] = useState(blankBoard);
+  const debugMode = false;
 
+  // Handles individual square clicks
   function handleClick(r, c) {
+    // disallow if a player has already submitted a shape
+    if (state.roundSubmits[playerid] === 1) return;
+
     let squares = grid.slice();
     let turnBoard = turn.slice();
-
-    // Handles individual square clicks
     if (!squares[r][c] && !turnBoard[r][c]) {
-      // disallow if a player has already submitted a shape
-      if (state.roundSubmits[playerid] === 1) return;
       // disallow more clicks than there are squares in each shapes
       let max = state.expeditionDeck[state.currentRound].squares;
       if (turnBoard.flat().filter(Boolean).length >= max) {
-        toast.warn("Oops! Too many squares selected", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.warn("Oops! Too many squares selected", warnToast);
         return;
       }
 
@@ -63,60 +56,51 @@ export default function Board({
     return <Square value={gameBoard[r][c]} onClick={() => handleClick(r, c)} />;
   }
 
+  const handleValidation = () => {
+    // In debug mode, all shapes/clicks are valid
+    if (debugMode) return true;
+    // Only allow one submission per player
+    if (state.roundSubmits[playerid] === 1) return false;
+    // if the shape doesn't match the expedition card, return false
+    if (!validateShape(turn, state.expeditionDeck[state.currentRound])) return false;
+    console.log("Shape is valid!");
+    // convert "x"s to 1s
+    grid.forEach((row, x) => {
+      row.forEach((cell, y) => {
+        if (cell === "x") grid[x][y] = 2;
+      });
+    });
+
+    setGameboard(grid);
+    setTurn(blankBoard);
+
+    // Sees if number of submissions in the round matches the number of players
+    handlePlayerSubmits();
+    return true;
+  };
+
   // Handles board submit
   function handleSubmit() {
-    const isValid = validateShape(turn, state.expeditionDeck[state.currentRound]);
+    let isValid = handleValidation();
 
-    if (state.roundSubmits[playerid] === 1) return;
-    // If the shape matches the expedition card
     if (isValid) {
-      console.log("Shape is valid!");
-      // convert "x"s to 1s
-      grid.forEach((row, x) => {
-        row.forEach((cell, y) => {
-          if (cell === "x") grid[x][y] = 2;
-        });
-      });
-
-      setGameboard(grid);
-      setTurn(blankBoard);
-
-      // Sees if number of submissions in the round matches the number of players
-      handlePlayerSubmits();
-
       // See if board is complete
-      if (isBoardComplete(gameBoard)) {
-        setTurn(blankBoard);
-        const newGrid = resetBoard(playerid, boardid);
-        setGameboard(newGrid.grid);
-        toast.success("🎉 Card completed!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
+      isBoardComplete(gameBoard);
     } else {
-      toast.error("Invalid shape. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      // send error toast
+      toast.error("Invalid shape. Please try again.", errorToast);
     }
-    // }
   }
 
   function isBoardComplete(board) {
     let flat = board.flat();
     let removeFalsy = flat.filter(Boolean);
-    return removeFalsy.length === 16;
+    if (removeFalsy.length === 16) {
+      setTurn(blankBoard);
+      const newGrid = resetBoard(playerid, boardid);
+      setGameboard(newGrid.grid);
+      toast.success("🎉 Card completed!", successToast);
+    }
   }
 
   return (
