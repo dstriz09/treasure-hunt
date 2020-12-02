@@ -30,13 +30,11 @@ export default function Board({
 
     // Handles individual square clicks
     if (!squares[r][c] && !turnBoard[r][c]) {
+      // disallow if a player has already submitted a shape
       if (state.roundSubmits[playerid] === 1) return;
-
-      let max = state.expeditionDeck[state.currentRound].squares;
       // disallow more clicks than there are squares in each shapes
-      // or disallow if a player has already submitted a shape
+      let max = state.expeditionDeck[state.currentRound].squares;
       if (turnBoard.flat().filter(Boolean).length >= max) {
-        // if (turnBoard.flat().filter(Boolean).length >= max || checkForPlayerSubmit()) {
         toast.warn("Oops! Too many squares selected", {
           position: "top-right",
           autoClose: 3000,
