@@ -9,11 +9,22 @@ export default function Player({ playerid }) {
   const getHand = (p) => {
     let hand = [];
     if (p === 0) hand = state.playerOne; // player one
-    if (p === 1) hand = state.playerTwo; // player two 
+    if (p === 1) hand = state.playerTwo; // player two
     if (p === 2) hand = state.playerThree; // player three
     if (p === 3) hand = state.playerFour; // player four
     return hand;
-  }
+  };
+
+  // checks and adds number of submits per expedition card round
+  const handlePlayerSubmits = () => {
+    let playerSubmit = state.roundSubmits;
+    playerSubmit[playerid] = 1;
+    setState((state) => ({ ...state, roundSubmits: playerSubmit }));
+
+    if (state.roundSubmits.flat().filter(Boolean).length == state.numPlayers) {
+      console.log("all players have submitted");
+    }
+  };
 
   // called from the board component
   const resetBoard = (playerid, boardid) => {
@@ -26,21 +37,25 @@ export default function Player({ playerid }) {
     // push to complete deck
     hand.complete.push(finishedCard);
     // get a new card
-    let newCard = treasureDeck[0]
+    let newCard = treasureDeck[0];
     // remove old card and add new card to the players hand
-    hand.current.splice(boardid, 1, newCard)
+    hand.current.splice(boardid, 1, newCard);
     // remove card from deck
-    treasureDeck.shift()
+    treasureDeck.shift();
 
     // save deck and hand to state
-    if (playerid === 0) setState(state => ({ ...state, treasureDeck, playerOne: hand }));; // player one
-    if (playerid === 1) setState(state => ({ ...state, treasureDeck, playerTwo: hand }));; // player two 
-    if (playerid === 2) setState(state => ({ ...state, treasureDeck, playerThree: hand }));; // player three
-    if (playerid === 3) setState(state => ({ ...state, treasureDeck, playerFour: hand }));; // player four
+    if (playerid === 0)
+      setState((state) => ({ ...state, treasureDeck, playerOne: hand })); // player one
+    if (playerid === 1)
+      setState((state) => ({ ...state, treasureDeck, playerTwo: hand })); // player two
+    if (playerid === 2)
+      setState((state) => ({ ...state, treasureDeck, playerThree: hand })); // player three
+    if (playerid === 3)
+      setState((state) => ({ ...state, treasureDeck, playerFour: hand })); // player four
 
     // returns the new card -- necessary for the board to be cleared immediately
     return newCard;
-  }
+  };
 
   const CreateBoards = () => {
     let hand = getHand(playerid);
@@ -50,40 +65,39 @@ export default function Player({ playerid }) {
 
     hand.current.forEach((card, i) => {
       playerComponentArr.push([
-        <Board 
+        <Board
           playerid={playerid}
           boardid={i}
-          key={playerid*2+i}
+          key={playerid * 2 + i}
           grid={card.grid}
           color={card.color}
           value={card.value}
           resetBoard={(p, b) => resetBoard(p, b)}
-        />
-      ])
-    })
-    return playerComponentArr
-  }
+          handlePlayerSubmits={handlePlayerSubmits}
+        />,
+      ]);
+    });
+    return playerComponentArr;
+  };
 
   const getScore = (p) => {
-    if (p === 0) return state.playerOne.score() // player one
-    if (p === 1) return state.playerTwo.score()  // player two 
-    if (p === 2) return state.playerThree.score()  // player three
-    if (p === 3) return state.playerFour.score()  // player four
-  }
+    if (p === 0) return state.playerOne.score(); // player one
+    if (p === 1) return state.playerTwo.score(); // player two
+    if (p === 2) return state.playerThree.score(); // player three
+    if (p === 3) return state.playerFour.score(); // player four
+  };
 
   return (
     <div style={{ display: "flex" }}>
       <h3 style={({ margin: "20px" }, { alignSelf: "center" })}>
         Player {playerid + 1}
       </h3>
-      {
-        CreateBoards().map((board) => {
-          return board;
-        })
-      }
+      {CreateBoards().map((board) => {
+        return board;
+      })}
       Completed cards: {getScore(playerid).completedCards}
       <br />
       Score: {getScore(playerid).score}
     </div>
-  )
+  );
 }

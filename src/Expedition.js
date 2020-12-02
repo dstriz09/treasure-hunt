@@ -5,8 +5,19 @@ export default function Expedition() {
   const [state, setState] = useContext(CardContext);
 
   function handleRoundChange() {
+    console.log("ex", state.roundSubmits, state.numPlayers);
+    if (
+      state.roundSubmits.flat().filter(Boolean).length != state.numPlayers ||
+      state.numPlayers == null
+    ) {
+      return;
+    }
     if (state.currentRound < 7) {
-      setState((state) => ({ ...state, currentRound: state.currentRound + 1 }));
+      setState((state) => ({
+        ...state,
+        currentRound: state.currentRound + 1,
+        roundSubmits: [0, 0, 0, 0],
+      }));
     } else if (state.currentPhase === 4) {
       // The game is over
       endGame();
@@ -15,8 +26,9 @@ export default function Expedition() {
       setState((state) => ({
         ...state,
         currentRound: 1,
+        roundSubmits: [0, 0, 0, 0],
         curentPhase: ++state.currentPhase,
-        expeditionDeck: NewExpeditionDeck()
+        expeditionDeck: NewExpeditionDeck(),
       }));
     }
   }
@@ -25,32 +37,32 @@ export default function Expedition() {
     // To do: Eventually this should figure out who has the highest score
     // and congratulate that player
     const finalScores = [
-      { 
+      {
         name: "Player One",
-        score: state.playerOne.score().score
+        score: state.playerOne.score().score,
       },
-      { 
+      {
         name: "Player Two",
-        score: state.playerTwo.score().score
+        score: state.playerTwo.score().score,
       },
-      { 
+      {
         name: "Player Three",
-        score: state.playerThree.score().score
+        score: state.playerThree.score().score,
       },
-      { 
+      {
         name: "Player Four",
-        score: state.playerFour.score().score
-      }
-    ]
+        score: state.playerFour.score().score,
+      },
+    ];
 
-    let winningText = ""
+    let winningText = "";
     for (let i = 0; i < state.numPlayers; i++) {
-      winningText += `${finalScores[i].name}: ${finalScores[i].score}`
-      if (i+1 < state.numPlayers) winningText += "\n"
+      winningText += `${finalScores[i].name}: ${finalScores[i].score}`;
+      if (i + 1 < state.numPlayers) winningText += "\n";
     }
 
     alert("Game over! Final scores:\n" + winningText);
-  }
+  };
 
   return (
     <div>
