@@ -2,11 +2,8 @@ import React, { useContext, useState } from "react";
 import Board from "./Board";
 import { CardContext } from "./CardContext";
 
-let roundSubmits = 0;
-
 export default function Player({ playerid }) {
   const [state, setState] = useContext(CardContext);
-  let playerSubmit = 0;
 
   // get the players hand
   const getHand = (p) => {
@@ -20,17 +17,13 @@ export default function Player({ playerid }) {
 
   // checks and adds number of submits per expedition card round
   const handlePlayerSubmits = () => {
-    roundSubmits++;
-    playerSubmit++;
-    state.roundSubmits = roundSubmits;
-    if (roundSubmits == state.numPlayers) {
-      console.log("all players have submitted");
-      roundSubmits = 0;
-    }
-  };
+    let playerSubmit = state.roundSubmits;
+    playerSubmit[playerid] = 1;
+    setState((state) => ({ ...state, roundSubmits: playerSubmit }));
 
-  const checkForPlayerSubmit = () => {
-    return playerSubmit;
+    if (state.roundSubmits.flat().filter(Boolean).length == state.numPlayers) {
+      console.log("all players have submitted");
+    }
   };
 
   // called from the board component
@@ -81,7 +74,6 @@ export default function Player({ playerid }) {
           value={card.value}
           resetBoard={(p, b) => resetBoard(p, b)}
           handlePlayerSubmits={handlePlayerSubmits}
-          checkForPlayerSubmit={checkForPlayerSubmit}
         />,
       ]);
     });

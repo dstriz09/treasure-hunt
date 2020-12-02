@@ -15,13 +15,12 @@ export const validateShape = (selection, expedition) => {
       }
     });
   }
-  // for (i = 0; i < cleanedSelection.length; i++){
-  //   cleanedSelction[i].reduce((acc, curr) => acc+curr)
-  // }
 
+  // Lets a player only select one square instead of the shape
   let skipShapeTurn = cleanedSelection.flatMap((x) => x);
   skipShapeTurn = skipShapeTurn.reduce((acc, curr) => acc + curr);
   if (skipShapeTurn === 1) return true;
+
   const isOKshape = isShapeValid(cleanedSelection, rowRegex, colRegex);
 
   if (isOKshape) {

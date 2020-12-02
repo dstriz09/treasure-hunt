@@ -5,23 +5,29 @@ export default function Expedition() {
   const [state, setState] = useContext(CardContext);
 
   function handleRoundChange() {
-    if (state.roundSubmits != state.numPlayers || state.numPlayers == null) {
+    console.log("ex", state.roundSubmits, state.numPlayers);
+    if (
+      state.roundSubmits.flat().filter(Boolean).length != state.numPlayers ||
+      state.numPlayers == null
+    ) {
       return;
     }
     if (state.currentRound < 7) {
-      state.roundSubmits = 0;
-      setState((state) => ({ ...state, currentRound: state.currentRound + 1 }));
+      setState((state) => ({
+        ...state,
+        currentRound: state.currentRound + 1,
+        roundSubmits: [0, 0, 0, 0],
+      }));
     } else if (state.currentPhase === 4) {
       // The game is over
       endGame();
     } else {
       // generate new expedition deck, increase phase, and reset round to 1
-      state.currentPhase = ++state.currentPhase;
-      state.roundSubmits = 0;
       setState((state) => ({
         ...state,
         currentRound: 1,
-        // curentPhase: ++state.currentPhase,
+        roundSubmits: [0, 0, 0, 0],
+        curentPhase: ++state.currentPhase,
         expeditionDeck: NewExpeditionDeck(),
       }));
     }
