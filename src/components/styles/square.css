@@ -33,3 +33,10 @@
   height: 30px;
   width: 30px;
 }
+
+.coinSelected {
+  background-color: gold;
+  font-size: 0px;
+  height: 30px;
+  width: 30px;
+}
