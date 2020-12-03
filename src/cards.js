@@ -93,7 +93,6 @@ export const TREASURES = [
       [0, 0, 0, 0],
     ],
     bonus: null,
-    isCoin: true,
   },
   {
     color: "purple",
