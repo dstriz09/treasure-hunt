@@ -108,7 +108,7 @@ export const TREASURES = [
     originalGrid: [
       [1, 1, 0, 3],
       [0, 0, 0, 0],
-      (33)[(0, 0, 0, 0)],
+      [3, 0, 0, 0],
       [0, 0, 0, 0],
     ],
     bonus: null,
