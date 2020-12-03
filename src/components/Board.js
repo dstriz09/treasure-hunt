@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import Square from "./Square";
-import { validateShape } from "./shapes/Shapes";
+import { validateShape } from "../helpers/Shapes";
 import { CardContext } from "./CardContext";
 import { toast } from "react-toastify";
+import { warnToast, successToast, errorToast } from "../helpers/Toasts";
 
 export default function Board({
   playerid,
@@ -23,12 +24,16 @@ export default function Board({
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
-
   const [turn, setTurn] = useState(blankBoard);
   const [hasCoin, setHasCoin] = useState(false);
   const [coinUpdate, setCoinUpdate] = useState(0);
+  const debugMode = false;
 
+  // Handles individual square clicks
   function handleClick(r, c) {
+    // disallow if a player has already submitted a shape
+    if (state.roundSubmits[playerid] === 1) return;
+
     let squares = grid.slice();
     let turnBoard = turn.slice();
     // Handles individual square clicks
@@ -38,15 +43,7 @@ export default function Board({
       // disallow more clicks than there are squares in each shapes
       let max = state.expeditionDeck[state.currentRound].squares;
       if (turnBoard.flat().filter(Boolean).length >= max) {
-        toast.warn("Oops! Too many squares selected", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.warn("Oops! Too many squares selected", warnToast);
         return;
       }
 
@@ -84,80 +81,66 @@ export default function Board({
     );
   }
 
-  //Every time coinUpdate updates (which is whenever a coin gets added), this fuction runs
   useEffect(() => {
     //add the coins to score when players reach 4, 8, and 12.
     //Do this with state.coinBonus.pop() to assign the score and remove it from the array
   }, [coinUpdate]);
 
+  const handleValidation = () => {
+    // In debug mode, all shapes/clicks are valid
+    if (debugMode) return true;
+    // Only allow one submission per player
+    if (state.roundSubmits[playerid] === 1) return false;
+    // if the shape doesn't match the expedition card, return false
+    if (!validateShape(turn, state.expeditionDeck[state.currentRound])) return false;
+    console.log("Shape is valid!");
+    // convert "x"s to 1s
+    grid.forEach((row, x) => {
+      row.forEach((cell, y) => {
+        if (cell === "x") grid[x][y] = 2;
+      });
+    });
+
+    setGameboard(grid);
+    setTurn(blankBoard);
+
+    // Sees if number of submissions in the round matches the number of players
+    handlePlayerSubmits();
+    return true;
+  };
+
   // Handles board submit
   function handleSubmit() {
-    const isValid = validateShape(
-      turn,
-      state.expeditionDeck[state.currentRound]
-    );
+    let isValid = handleValidation();
 
-    if (state.roundSubmits[playerid] === 1) return;
-    // If the shape matches the expedition card
-    if (isValid) {
-      console.log("Shape is valid!");
-      // convert "x"s to 1s
-      grid.forEach((row, x) => {
-        row.forEach((cell, y) => {
-          if (cell === "x") grid[x][y] = 2;
-        });
-      });
-
-      setGameboard(grid);
-      setTurn(blankBoard);
-
-      // Sees if number of submissions in the round matches the number of players
-      handlePlayerSubmits();
-
-      // Checks for coins and adds
-      if (hasCoin) {
-        let playerCoins = state.coins;
-        let count = coinUpdate;
-        playerCoins[playerid] += 1;
-        setState((state) => ({ ...state, coins: playerCoins }));
-        setHasCoin(false);
-        setCoinUpdate((count += 1));
-      }
-
-      // See if board is complete
-      if (isBoardComplete(gameBoard)) {
-        setTurn(blankBoard);
-        const newGrid = resetBoard(playerid, boardid);
-        setGameboard(newGrid.grid);
-        setRevert(newGrid.grid);
-        toast.success("🎉 Card completed!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    } else {
-      toast.error("Invalid shape. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    // Checks for coins and adds
+    if (hasCoin) {
+      let playerCoins = state.coins;
+      let count = coinUpdate;
+      playerCoins[playerid] += 1;
+      setState((state) => ({ ...state, coins: playerCoins }));
+      setHasCoin(false);
+      setCoinUpdate((count += 1));
     }
-    // }
+
+    if (isValid) {
+      // See if board is complete
+      isBoardComplete(gameBoard);
+    } else {
+      // send error toast
+      toast.error("Invalid shape. Please try again.", errorToast);
+    }
   }
 
   function isBoardComplete(board) {
     let flat = board.flat();
     let removeFalsy = flat.filter(Boolean);
-    return removeFalsy.length === 16;
+    if (removeFalsy.length === 16) {
+      setTurn(blankBoard);
+      const newGrid = resetBoard(playerid, boardid);
+      setGameboard(newGrid.grid);
+      toast.success("🎉 Card completed!", successToast);
+    }
   }
 
   return (

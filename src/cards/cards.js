@@ -1,9 +1,9 @@
-import tetris from "./shapes/images/tetris.png";
-import l from "./shapes/images/l.png";
-import bend from "./shapes/images/bend.png";
-import dash from "./shapes/images/dash.png";
-import longI from "./shapes/images/long-i.png";
-import s from "./shapes/images/s.png";
+import tetris from "./images/tetris.png";
+import l from "./images/l.png";
+import bend from "./images/bend.png";
+import dash from "./images/dash.png";
+import longI from "./images/long-i.png";
+import s from "./images/s.png";
 
 export const EXPEDITIONS = [
   {

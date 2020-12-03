@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EXPEDITIONS, TREASURES } from "./cards";
+import { EXPEDITIONS, TREASURES } from "../cards/cards";
 
 // Create the context. Empty function allows us to call setState
 export const CardContext = React.createContext([{}, () => {}]);
