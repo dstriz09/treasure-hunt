@@ -25,3 +25,11 @@
   height: 30px;
   width: 30px;
 }
+
+.coin {
+  background-color: gold;
+  border-radius: 25px;
+  font-size: 0px;
+  height: 30px;
+  width: 30px;
+}
