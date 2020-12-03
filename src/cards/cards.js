@@ -93,7 +93,6 @@ export const TREASURES = [
       [0, 0, 0, 0],
     ],
     bonus: null,
-    isCoin: true,
   },
   {
     color: "purple",
@@ -108,24 +107,23 @@ export const TREASURES = [
     originalGrid: [
       [1, 1, 0, 3],
       [0, 0, 0, 0],
-      (33)[(0, 0, 0, 0)],
+      [3, 0, 0, 0],
       [0, 0, 0, 0],
     ],
     bonus: null,
-    isCoin: true,
   },
   {
     color: "orange",
     value: 12,
     badge: false,
     grid: [
-      [33, 0, 1, 1],
+      [3, 0, 1, 1],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [1, 1, 0, 0],
     ],
     originalGrid: [
-      [33, 0, 1, 1],
+      [3, 0, 1, 1],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [1, 1, 0, 0],
@@ -137,13 +135,13 @@ export const TREASURES = [
     value: 12,
     badge: false,
     grid: [
-      [33, 0, 1, 0],
+      [3, 0, 1, 0],
       [0, 0, 1, 0],
       [0, 0, 0, 0],
       [1, 1, 0, 0],
     ],
     originalGrid: [
-      [33, 0, 1, 0],
+      [3, 0, 1, 0],
       [0, 0, 1, 0],
       [0, 0, 0, 0],
       [1, 1, 0, 0],

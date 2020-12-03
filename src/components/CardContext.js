@@ -40,10 +40,10 @@ const CardContextProvider = (props) => {
     currentRound: 1, // seven rounds per phase
     currentPhase: 1, // four phases per game
     numPlayers: null,
-    playerOne: { current: [], complete: [], score, coins: 0 },
-    playerTwo: { current: [], complete: [], score, coins: 0 },
-    playerThree: { current: [], complete: [], score, coins: 0 },
-    playerFour: { current: [], complete: [], score, coins: 0 },
+    playerOne: { current: [], complete: [], score, },
+    playerTwo: { current: [], complete: [], score, },
+    playerThree: { current: [], complete: [], score, },
+    playerFour: { current: [], complete: [], score, },
     roundSubmits: [0, 0, 0, 0],
     coins: [0, 0, 0, 0],
     coinBonus: [1, 2, 3, 4, 5, 6],

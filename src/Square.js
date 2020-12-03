@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./square.css";
 
 export default function Square({ value, onClick }) {
