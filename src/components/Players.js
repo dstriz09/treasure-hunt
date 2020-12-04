@@ -21,9 +21,7 @@ export default function Player({ playerid }) {
     playerSubmit[playerid] = 1;
     setState((state) => ({ ...state, roundSubmits: playerSubmit }));
 
-    if (state.roundSubmits.flat().filter(Boolean).length == state.numPlayers) {
-      console.log("all players have submitted");
-    }
+    if (state.roundSubmits.flat().filter(Boolean).length == state.numPlayers) return;
   };
 
   // called from the board component

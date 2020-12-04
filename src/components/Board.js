@@ -94,7 +94,6 @@ export default function Board({
     if (state.roundSubmits[playerid] === 1) return false;
     // if the shape doesn't match the expedition card, return false
     if (!validateShape(turn, state.expeditionDeck[state.currentRound])) return false;
-    console.log("Shape is valid!");
     // convert "x"s to 1s
     grid.forEach((row, x) => {
       row.forEach((cell, y) => {

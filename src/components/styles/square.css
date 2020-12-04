@@ -27,9 +27,7 @@
 }
 
 .coin {
-  /* background-color: gold; */
   background-image: url("../../cards/images/coin.jpg");
-  /* border-radius: 25px; */
   background-repeat: no-repeat;
   background-size: 100%;
   font-size: 0px;
