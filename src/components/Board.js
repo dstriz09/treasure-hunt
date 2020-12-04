@@ -27,6 +27,7 @@ export default function Board({
   const [turn, setTurn] = useState(blankBoard);
   const [hasCoin, setHasCoin] = useState(false);
   const [coinUpdate, setCoinUpdate] = useState(0);
+  const [triggerUseEffect, setTriggerUseEffect] = useState(0);
   const debugMode = false;
 
   // Handles individual square clicks
@@ -48,15 +49,13 @@ export default function Board({
       }
 
       //if a player selects a coin, it adds it to the total
-      if (squares[r][c] === 0) {
-        squares[r][c] = "x";
-      } else if (squares[r][c] === 3) {
+      if (squares[r][c] === 3) {
         setHasCoin(true);
-        squares[r][c] = "xc";
       }
 
+      squares[r][c] = "x";
       turnBoard[r][c] = "x";
-    } else if (turnBoard[r][c].toString().includes("x")) {
+    } else if (turnBoard[r][c] === "x") {
       let originalBoard = revert.slice();
       squares[r][c] = originalBoard[r][c];
       turnBoard[r][c] = 0;
@@ -70,6 +69,7 @@ export default function Board({
     setGameboard(squares);
     setTurn(turnBoard);
   }
+
   //where r (rows) and c (columns) are 0-3
   function renderSquare(r, c) {
     return (
@@ -81,6 +81,10 @@ export default function Board({
       />
     );
   }
+
+  useEffect(() => {
+    setRevert(originalGrid);
+  }, [triggerUseEffect]);
 
   useEffect(() => {
     //add the coins to score when players reach 4, 8, and 12.
@@ -97,7 +101,7 @@ export default function Board({
     // convert "x"s to 1s
     grid.forEach((row, x) => {
       row.forEach((cell, y) => {
-        if (cell.toString().includes("x")) grid[x][y] = 2;
+        if (cell === "x") grid[x][y] = 2;
       });
     });
 
@@ -139,6 +143,8 @@ export default function Board({
       setTurn(blankBoard);
       const newGrid = resetBoard(playerid, boardid);
       setGameboard(newGrid.grid);
+      let triggerCount = triggerUseEffect + 1;
+      setTriggerUseEffect(triggerCount);
       toast.success("🎉 Card completed!", successToast);
     }
   }
