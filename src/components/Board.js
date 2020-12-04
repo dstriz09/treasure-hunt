@@ -56,7 +56,7 @@ export default function Board({
       }
 
       turnBoard[r][c] = "x";
-    } else if (turnBoard[r][c].includes("x")) {
+    } else if (toString(turnBoard[r][c]).includes("x")) {
       let originalBoard = revert.slice();
       squares[r][c] = originalBoard[r][c];
       turnBoard[r][c] = 0;
