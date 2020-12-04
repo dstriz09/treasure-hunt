@@ -139,7 +139,6 @@ export default function Board({
       setTurn(blankBoard);
       const newGrid = resetBoard(playerid, boardid);
       setGameboard(newGrid.grid);
-      setRevert(newGrid.originalGrid);
       toast.success("🎉 Card completed!", successToast);
     }
   }
