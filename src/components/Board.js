@@ -48,13 +48,15 @@ export default function Board({
       }
 
       //if a player selects a coin, it adds it to the total
-      if (squares[r][c] === 3) {
+      if (squares[r][c] === 0) {
+        squares[r][c] = "x";
+      } else if (squares[r][c] === 3) {
         setHasCoin(true);
+        squares[r][c] = "xc";
       }
 
-      squares[r][c] = "x";
       turnBoard[r][c] = "x";
-    } else if (turnBoard[r][c] === "x") {
+    } else if (turnBoard[r][c].toString().includes("x")) {
       let originalBoard = revert.slice();
       squares[r][c] = originalBoard[r][c];
       turnBoard[r][c] = 0;
@@ -68,7 +70,6 @@ export default function Board({
     setGameboard(squares);
     setTurn(turnBoard);
   }
-
   //where r (rows) and c (columns) are 0-3
   function renderSquare(r, c) {
     return (
@@ -93,11 +94,10 @@ export default function Board({
     if (state.roundSubmits[playerid] === 1) return false;
     // if the shape doesn't match the expedition card, return false
     if (!validateShape(turn, state.expeditionDeck[state.currentRound])) return false;
-    console.log("Shape is valid!");
     // convert "x"s to 1s
     grid.forEach((row, x) => {
       row.forEach((cell, y) => {
-        if (cell === "x") grid[x][y] = 2;
+        if (cell.toString().includes("x")) grid[x][y] = 2;
       });
     });
 

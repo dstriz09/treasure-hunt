@@ -6,6 +6,7 @@ export default function Square({ value, onClick }) {
   if (value === "x") className = "selected";
   if (value === 2) className = "submitted";
   if (value === 3) className = "coin";
+  if (value === "xc") className = "coinSelected";
   return (
     <button className={className} onClick={onClick}>
       {value}

@@ -27,8 +27,16 @@
 }
 
 .coin {
+  background-image: url("../../cards/images/coin.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-size: 0px;
+  height: 30px;
+  width: 30px;
+}
+
+.coinSelected {
   background-color: gold;
-  border-radius: 25px;
   font-size: 0px;
   height: 30px;
   width: 30px;
