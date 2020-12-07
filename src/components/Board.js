@@ -49,13 +49,16 @@ export default function Board({
       }
 
       //if a player selects a coin, it adds it to the total
-      if (squares[r][c] === 3) {
+      if (squares[r][c] === 0) {
+        squares[r][c] = "x";
+      } else if (squares[r][c] === 3) {
         setHasCoin(true);
+        squares[r][c] = "xc";
       }
 
       squares[r][c] = "x";
       turnBoard[r][c] = "x";
-    } else if (turnBoard[r][c] === "x") {
+    } else if (turnBoard[r][c].toString().includes("x")) {
       let originalBoard = revert.slice();
       squares[r][c] = originalBoard[r][c];
       turnBoard[r][c] = 0;
@@ -101,7 +104,7 @@ export default function Board({
     // convert "x"s to 1s
     grid.forEach((row, x) => {
       row.forEach((cell, y) => {
-        if (cell === "x") grid[x][y] = 2;
+        if (cell.toString().includes("x")) grid[x][y] = 2;
       });
     });
 
