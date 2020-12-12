@@ -4,6 +4,7 @@ import { validateShape } from "../helpers/Shapes";
 import { CardContext } from "./CardContext";
 import { toast } from "react-toastify";
 import { warnToast, successToast, errorToast } from "../helpers/Toasts";
+import "./styles/board.css";
 
 export default function Board({
   playerid,
@@ -152,9 +153,8 @@ export default function Board({
   }
 
   return (
-    <div style={{ margin: "20px" }} boardid={boardid}>
+    <div className={"board-grid card-" + color} boardid={boardid}>
       <p>Points: {value}</p>
-      <p>Color: {color}</p>
       <div className="board-row">
         {renderSquare(0, 0)}
         {renderSquare(0, 1)}
