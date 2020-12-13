@@ -12,7 +12,7 @@ function Board() {
   const name = ["Dillin", "Brandon"];
   const TREASURES = [
     {
-      color: "253, 213, 137",
+      color: "250, 184, 176",
       points: 14,
       grid: [
         [3, 0, 0, 0],
