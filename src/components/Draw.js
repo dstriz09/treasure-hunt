@@ -1,11 +1,15 @@
 import React from "react";
 import Card from "./Card";
 
-function Draw() {
+import { StyledDraw } from "../styles/StyledDraw";
+
+function Draw({ cards }) {
   return (
-    <div>
-      <Card />
-    </div>
+    <StyledDraw>
+      {cards.map((card, x) => (
+        <Card key={x} card={card} />
+      ))}
+    </StyledDraw>
   );
 }
 

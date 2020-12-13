@@ -5,13 +5,13 @@ import Button from "./Button";
 
 import { StyledCard } from "../styles/StyledCard";
 
-function Card() {
+function Card({ card }) {
   return (
     // For now, I'm manually passing in an RGB color.
     // This will eventually a prop value on each card.
-    <StyledCard color={"253, 213, 137"}>
-      <Values />
-      <Grid />
+    <StyledCard color={card.color}>
+      <Values points={card.points} />
+      <Grid grid={card.grid} />
       <Button />
     </StyledCard>
   );

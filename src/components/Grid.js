@@ -1,11 +1,13 @@
 import React from "react";
 import Square from "./Square";
 
-function Grid() {
+import { StyledGrid } from "../styles/StyledGrid";
+
+function Grid({ grid }) {
   return (
-    <div>
-      <Square />
-    </div>
+    <StyledGrid>
+      {grid.map((row) => row.map((cell, x) => <Square key={x} type={cell} />))}
+    </StyledGrid>
   );
 }
 

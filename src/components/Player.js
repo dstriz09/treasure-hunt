@@ -2,12 +2,17 @@ import React from "react";
 import Card from "./Card";
 import Score from "./Score";
 
-function Player() {
+import { StyledPlayer } from "../styles/StyledPlayer";
+
+function Player({ name, cards }) {
   return (
-    <div>
-      <Card />
+    <StyledPlayer>
+      {name}
+      {cards.map((card, x) => (
+        <Card key={x} card={card} />
+      ))}
       <Score />
-    </div>
+    </StyledPlayer>
   );
 }
 

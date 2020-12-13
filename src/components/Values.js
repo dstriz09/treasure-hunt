@@ -1,7 +1,7 @@
 import React from "react";
 
-function Values() {
-  return <div>Values</div>;
+function Values({ points }) {
+  return <div>{points}</div>;
 }
 
 export default Values;
