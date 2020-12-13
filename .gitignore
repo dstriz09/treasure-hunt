@@ -24,3 +24,5 @@ yarn-error.log*
 
 # Don't track credentials
 serviceAccountKey.json
+
+.eslintcache
