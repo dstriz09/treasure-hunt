@@ -1,7 +1,7 @@
 import React from "react";
 
-function Board() {
+function Score() {
   return <div></div>;
 }
 
-export default Board;
+export default Score;

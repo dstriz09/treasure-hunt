@@ -1,7 +1,7 @@
 import React from "react";
 
-function Board() {
+function Status() {
   return <div></div>;
 }
 
-export default Board;
+export default Status;

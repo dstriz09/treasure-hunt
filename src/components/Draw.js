@@ -1,7 +1,7 @@
 import React from "react";
 
-function Board() {
+function Draw() {
   return <div></div>;
 }
 
-export default Board;
+export default Draw;

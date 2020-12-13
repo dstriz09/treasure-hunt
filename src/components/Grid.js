@@ -1,7 +1,7 @@
 import React from "react";
 
-function Board() {
+function Grid() {
   return <div></div>;
 }
 
-export default Board;
+export default Grid;

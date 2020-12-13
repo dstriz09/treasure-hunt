@@ -1,7 +1,7 @@
 import React from "react";
 
-function Board() {
+function Player() {
   return <div></div>;
 }
 
-export default Board;
+export default Player;

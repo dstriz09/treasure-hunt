@@ -1,7 +1,7 @@
 import React from "react";
 
-function Board() {
+function Rules() {
   return <div></div>;
 }
 
-export default Board;
+export default Rules;
