@@ -4,9 +4,14 @@
 // 3 = x
 // 4 = tree
 
+const grey = "150, 150, 150";
+const green = "55, 161, 28, 63";
+const orange = "245, 147, 49, 96";
+const purple = "178, 121, 224, 88";
+
 export const TREASURES = [
   {
-    color: "150, 150, 150",
+    color: grey,
     points: 8,
     bonus: false,
     bonusColor: "",
@@ -18,10 +23,10 @@ export const TREASURES = [
     ],
   },
   {
-    color: "150, 150, 150",
+    color: grey,
     points: 8,
     bonus: 1,
-    bonusColor: "124, 160, 71",
+    bonusColor: green,
     grid: [
       [0, 0, 0, 0],
       [1, 1, 1, 0],
@@ -30,7 +35,7 @@ export const TREASURES = [
     ],
   },
   {
-    color: "124, 160, 71",
+    color: green,
     points: 10,
     bonus: false,
     bonusColor: "",
@@ -42,7 +47,7 @@ export const TREASURES = [
     ],
   },
   {
-    color: "124, 160, 71",
+    color: green,
     points: 10,
     bonus: false,
     bonusColor: "",
@@ -54,10 +59,10 @@ export const TREASURES = [
     ],
   },
   {
-    color: "237, 132, 11",
+    color: orange,
     points: 12,
     bonus: 1,
-    bonusColor: "150, 150, 150",
+    bonusColor: grey,
     grid: [
       [1, 1, 0, 1],
       [1, 2, 0, 2],
@@ -66,10 +71,10 @@ export const TREASURES = [
     ],
   },
   {
-    color: "237, 132, 11",
+    color: orange,
     points: 12,
     bonus: 1,
-    bonusColor: "150, 150, 150",
+    bonusColor: grey,
     grid: [
       [1, 0, 0, 1],
       [1, 4, 1, 1],
@@ -78,7 +83,7 @@ export const TREASURES = [
     ],
   },
   {
-    color: "157, 59, 206 ",
+    color: purple,
     points: 14,
     bonus: false,
     bonusColor: "",
@@ -90,10 +95,10 @@ export const TREASURES = [
     ],
   },
   {
-    color: "157, 59, 206 ",
+    color: purple,
     points: 14,
     bonus: 2,
-    bonusColor: "237, 132, 11",
+    bonusColor: orange,
     grid: [
       [3, 1, 1, 1],
       [0, 1, 1, 0],
