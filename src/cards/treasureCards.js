@@ -8,7 +8,7 @@ export const TREASURES = [
   {
     color: "150, 150, 150",
     points: 8,
-    bonus: 0,
+    bonus: "",
     bonusColor: "",
     grid: [
       [0, 0, 0, 0],
@@ -32,7 +32,7 @@ export const TREASURES = [
   {
     color: "124, 160, 71",
     points: 10,
-    bonus: 0,
+    bonus: "",
     bonusColor: "",
     grid: [
       [0, 0, 0, 0],
@@ -44,7 +44,7 @@ export const TREASURES = [
   {
     color: "124, 160, 71",
     points: 10,
-    bonus: 0,
+    bonus: "",
     bonusColor: "",
     grid: [
       [0, 0, 0, 0],
@@ -80,7 +80,7 @@ export const TREASURES = [
   {
     color: "157, 59, 206 ",
     points: 14,
-    bonus: 0,
+    bonus: "",
     bonusColor: "",
     grid: [
       [0, 0, 1, 3],
