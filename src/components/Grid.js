@@ -7,24 +7,7 @@ function Grid({ grid }) {
   return (
     <div>
       <StyledGrid>
-        {grid[0].map((row, x) => (
-          <Square key={x} type={row} />
-        ))}
-      </StyledGrid>
-      <StyledGrid>
-        {grid[1].map((row, x) => (
-          <Square key={x} type={row} />
-        ))}
-      </StyledGrid>
-      <StyledGrid>
-        {grid[2].map((row, x) => (
-          <Square key={x} type={row} />
-        ))}
-      </StyledGrid>
-      <StyledGrid>
-        {grid[3].map((row, x) => (
-          <Square key={x} type={row} />
-        ))}
+        {grid.map((row) => row.map((cell, x) => <Square key={x} type={cell} />))}
       </StyledGrid>
     </div>
   );

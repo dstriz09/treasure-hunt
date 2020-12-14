@@ -11,5 +11,6 @@ export const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 142px;
+  max-width: 142px;
   height: 219px;
 `;
