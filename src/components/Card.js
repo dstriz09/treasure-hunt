@@ -10,7 +10,7 @@ function Card({ card }) {
     // For now, I'm manually passing in an RGB color.
     // This will eventually a prop value on each card.
     <StyledCard color={card.color}>
-      <Values points={card.points} />
+      <Values points={card.points} bonus={card.bonus} bonusColor={card.bonusColor} />
       <Grid grid={card.grid} />
       <Button />
     </StyledCard>
