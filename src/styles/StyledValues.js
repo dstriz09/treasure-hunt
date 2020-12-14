@@ -10,11 +10,13 @@ export const StyledValues = styled.div`
 export const StyledBonus = styled.div`
   position: absolute;
   display: inline;
-  margin-left: 20px;
+  margin-left: 35px;
+  margin-top: -15px;
   border: solid 1px rgba(${(props) => props.color});
-  width: 20px;
-  height: 20px;
+  line-height: 25px;
+  width: 25px;
+  height: 25px;
   color: white;
-  border-radius: 25px;
+  border-radius: 50%;
   background-color: rgba(${(props) => props.color});
 `;
