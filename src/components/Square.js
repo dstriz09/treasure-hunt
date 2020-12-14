@@ -1,7 +1,10 @@
 import React from "react";
 
-function Square() {
-  return <div>Square</div>;
+import { StyledSquare } from "../styles/StyledSquare";
+
+function Square({ type }) {
+  console.log(type);
+  return <StyledSquare>{type}</StyledSquare>;
 }
 
 export default Square;

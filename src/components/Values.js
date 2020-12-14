@@ -1,7 +1,8 @@
 import React from "react";
+import { StyledValues } from "../styles/StyledValues";
 
-function Values() {
-  return <div>Values</div>;
+function Values({ points }) {
+  return <StyledValues>{points}</StyledValues>;
 }
 
 export default Values;

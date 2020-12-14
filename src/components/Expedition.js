@@ -1,13 +1,17 @@
 import React from "react";
 import Shape from "./Shape";
 import Button from "./Button";
+import Status from "./Status";
 
-function Expedition() {
+import { StyledExpedition } from "../styles/StyledExpedition";
+
+function Expedition({ round, expeditionNum }) {
   return (
-    <div>
+    <StyledExpedition>
       <Shape />
       <Button />
-    </div>
+      <Status round={round} expeditionNum={expeditionNum} />
+    </StyledExpedition>
   );
 }
 
