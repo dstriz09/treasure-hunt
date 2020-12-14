@@ -7,6 +7,6 @@ export const StyledPlayer = styled.div`
   align-items: center;
 `;
 
-export const StyledPlayerName = styled.div`
+export const StyledPlayerData = styled.div`
   width: 100px;
 `;
