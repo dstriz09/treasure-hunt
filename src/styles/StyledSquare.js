@@ -19,7 +19,7 @@ export const StyledSquare = styled.button`
       return `url(${x})`;
     }
   }};
-  background-size: 90%;
+  background-size: 70%;
   background-position: center;
   border: 1px solid #333;
   background-repeat: no-repeat;
