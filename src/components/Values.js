@@ -5,8 +5,7 @@ function Values({ points, bonus, bonusColor }) {
   return (
     <StyledValues>
       {points}
-      <StyledBonus color={bonusColor}>{bonus}</StyledBonus>
-    </StyledValues>
+      {bonus ? <StyleBonus color={bonusColor}>{bonus}</StyleBonus> : ""}
   );
 }
 
