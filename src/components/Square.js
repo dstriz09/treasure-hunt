@@ -1,10 +1,11 @@
 import React from "react";
 
-import { StyledSquare } from "../styles/StyledSquare";
+import { StyledSquare, StyledEmpty } from "../styles/StyledSquare";
 
 function Square({ type }) {
-  console.log(type);
-  return <StyledSquare>{type}</StyledSquare>;
+  if (type) {
+    return <StyledSquare type={type}> </StyledSquare>;
+  } else return <StyledEmpty> </StyledEmpty>;
 }
 
 export default Square;

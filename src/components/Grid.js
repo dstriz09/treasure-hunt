@@ -5,9 +5,28 @@ import { StyledGrid } from "../styles/StyledGrid";
 
 function Grid({ grid }) {
   return (
-    <StyledGrid>
-      {grid.map((row) => row.map((cell, x) => <Square key={x} type={cell} />))}
-    </StyledGrid>
+    <div>
+      <StyledGrid>
+        {grid[0].map((row, x) => (
+          <Square key={x} type={row} />
+        ))}
+      </StyledGrid>
+      <StyledGrid>
+        {grid[1].map((row, x) => (
+          <Square key={x} type={row} />
+        ))}
+      </StyledGrid>
+      <StyledGrid>
+        {grid[2].map((row, x) => (
+          <Square key={x} type={row} />
+        ))}
+      </StyledGrid>
+      <StyledGrid>
+        {grid[3].map((row, x) => (
+          <Square key={x} type={row} />
+        ))}
+      </StyledGrid>
+    </div>
   );
 }
 
